@@ -46,7 +46,6 @@ export default function ImpactCounters() {
     }
 
     const duration = 1800;
-    let frame = 0;
     let animationId = 0;
     const startTime = performance.now();
 
