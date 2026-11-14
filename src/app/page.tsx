@@ -1,3 +1,5 @@
+import ImpactCounters from "./ImpactCounters";
+
 const programmes = [
   { number: "01", title: "Jack Lumpa Education Fund", tag: "Education sponsorship", image: "/images/programmes/Programmes%20(1).jpg", description: "Helping vulnerable and orphaned children stay in school through support for fees, uniforms, stationery and essential learning needs." },
   { number: "02", title: "#1Friend1Box Campaign", tag: "Menstrual health", image: "/images/programmes/Programmes%20(2).jpg", description: "Breaking period poverty through menstrual health education and access to sanitary products for girls and women." },
