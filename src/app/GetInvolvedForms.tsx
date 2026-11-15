@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 
 const enquiryTypes = [
   { id: "sponsor", title: "Sponsor a child", description: "Support school fees, uniforms and learning materials through the Jack Lumpa Education Fund.", subject: "Child sponsorship enquiry", extraLabel: "How would you like to support?", extraOptions: ["Monthly sponsorship", "One-time contribution", "Learning materials or uniforms", "I would like to discuss the options"] },
@@ -30,6 +31,20 @@ export default function GetInvolvedForms() {
 
   const selected = enquiryTypes.find((item) => item.id === openForm);
 
+  useEffect(() => {
+    if (!openForm) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenForm(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [openForm]);
+
   return (
     <section className="get-involved get-involved-page">
       <div className="container involved-grid">
@@ -52,7 +67,7 @@ export default function GetInvolvedForms() {
           ))}
         </div>
       </div>
-      {selected && (
+      {selected && typeof document !== "undefined" && createPortal(
         <div className="involved-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpenForm(null); }}>
           <section className="involved-modal" role="dialog" aria-modal="true" aria-labelledby="involved-modal-title">
             <div className="involved-modal-heading">
@@ -73,7 +88,8 @@ export default function GetInvolvedForms() {
               <p className="involved-form-note">Your email app will open with your completed enquiry ready to send to R1CF.</p>
             </form>
           </section>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
