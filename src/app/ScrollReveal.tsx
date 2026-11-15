@@ -31,7 +31,14 @@ export default function ScrollReveal() {
 
     document.documentElement.classList.add("motion-ready");
     const elements = Array.from(document.querySelectorAll<HTMLElement>(revealSelector));
-    elements.forEach((element) => element.classList.add("scroll-reveal"));
+    elements.forEach((element) => {
+      element.classList.add("scroll-reveal");
+      const siblings = element.parentElement
+        ? Array.from(element.parentElement.children).filter((child) => child.matches(revealSelector))
+        : [];
+      const index = siblings.indexOf(element);
+      element.style.setProperty("--reveal-delay", `${Math.max(0, index) * 90}ms`);
+    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
