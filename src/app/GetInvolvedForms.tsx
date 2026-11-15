@@ -7,7 +7,6 @@ const enquiryTypes = [
   { id: "sponsor", title: "Sponsor a child", description: "Support school fees, uniforms and learning materials through the Jack Lumpa Education Fund.", subject: "Child sponsorship enquiry", extraLabel: "How would you like to support?", extraOptions: ["Monthly sponsorship", "One-time contribution", "Learning materials or uniforms", "I would like to discuss the options"] },
   { id: "partner", title: "Partner with us", description: "Work alongside R1CF to extend opportunities and amplify impact in communities.", subject: "Partnership enquiry", extraLabel: "What kind of partnership are you interested in?", extraOptions: ["Funding or financial support", "Programme implementation", "In-kind donations", "Institutional or corporate partnership", "Other"] },
   { id: "volunteer", title: "Volunteer your skills", description: "Contribute your experience in mentorship, education, communications or outreach.", subject: "Volunteer enquiry", extraLabel: "How would you like to contribute?", extraOptions: ["Mentorship", "Education and literacy", "Communications and design", "Community outreach", "Administration or professional skills", "Other"] },
-  { id: "share", title: "Spread the word", description: "Share our campaigns and help more people discover the work of R1CF.", subject: "Share our work", extraLabel: "How can you help spread the word?", extraOptions: ["Share R1CF on social media", "Introduce R1CF to my network", "Share a campaign or event", "Explore media or communications support"] },
 ];
 
 export default function GetInvolvedForms() {
