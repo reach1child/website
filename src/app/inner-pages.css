@@ -510,3 +510,30 @@
  .forms-inbox-detail{min-height:220px;padding:19px}
  .forms-inbox-detail-top{align-items:flex-start;flex-direction:column}
 }
+
+/* Shared administration shell for forms and content pages */
+.admin-workspace-shell{min-height:100vh;display:grid;grid-template-columns:252px minmax(0,1fr);background:#f4f6fb;color:#17264a;font-family:Arial,Helvetica,sans-serif}
+.admin-workspace-sidebar{height:100vh;position:sticky;top:0;background:#041968;color:#fff;padding:25px 17px 18px;display:flex;flex-direction:column;z-index:3}
+.admin-workspace-brand{height:105px;display:flex;align-items:center;justify-content:center;padding:0 10px 23px;border-bottom:1px solid #ffffff25;margin-bottom:27px}
+.admin-workspace-brand img{width:100%;height:75px;object-fit:contain;background:#fff;border-radius:8px;padding:5px}
+.admin-workspace-label{font-size:9px;letter-spacing:.16em;font-weight:700;color:#aab8df;padding:0 12px 12px}
+.admin-workspace-sidebar nav{display:grid;gap:6px}
+.admin-workspace-sidebar nav a{min-height:46px;border-radius:8px;display:flex;align-items:center;padding:0 13px;color:#e5eaff;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s}
+.admin-workspace-sidebar nav a:hover{background:#ffffff16}
+.admin-workspace-sidebar nav a.current{background:#ee3135;color:#fff;box-shadow:0 6px 16px #0002}
+.admin-workspace-secure{margin-top:auto;border-top:1px solid #ffffff25;padding:18px 8px 5px;display:flex;flex-direction:column;gap:4px}
+.admin-workspace-secure b{font-size:10px}.admin-workspace-secure span{font-size:9px;color:#b7c4e8}
+.admin-workspace-main{min-width:0}.admin-workspace-topbar{height:70px;background:#fff;border-bottom:1px solid #e6eaf2;display:flex;align-items:center;justify-content:space-between;padding:0 34px;font-size:11px;color:#78849a}
+.admin-workspace-topbar>span b{padding:0 9px;color:#c0c7d2}.admin-workspace-topbar>div{display:flex;flex-direction:column;gap:4px;text-align:right}.admin-workspace-topbar strong{font-size:10px;color:#293651}.admin-workspace-topbar small{font-size:9px;color:#8c96a8}
+.admin-workspace-content>.admin-subpage{min-height:calc(100vh - 70px);padding:0 32px 60px;background:#f4f6fb}
+.admin-workspace-content .admin-subpage>header{height:62px;border-bottom:1px solid #e1e6ef}
+.admin-workspace-content .admin-subpage>section{max-width:1180px;margin:38px auto}
+.admin-workspace-content .admin-subpage h1{font-size:clamp(30px,3vw,42px);letter-spacing:-.035em}
+.admin-workspace-content .admin-subpage>section>p{font-size:13px;line-height:1.7}
+.admin-workspace-content .forms-inbox-stats,.admin-workspace-content .forms-inbox-list,.admin-workspace-content .forms-inbox-detail,.admin-workspace-content .cms-module-grid article{border-radius:10px;box-shadow:0 4px 15px #17233f07}
+.admin-workspace-content .cms-module-grid article{min-height:100px;padding:22px}
+.admin-workspace-content .cms-module-grid h2{font-size:14px}
+.admin-workspace-content .cms-module-grid p{font-size:11px}
+.admin-workspace-content .cms-notice{border-radius:8px;border:1px solid #e7ebf2;border-left:3px solid #ee3135;box-shadow:0 4px 15px #17233f07}
+@media(max-width:1150px){.admin-workspace-shell{grid-template-columns:220px minmax(0,1fr)}.admin-workspace-topbar{padding:0 22px}.admin-workspace-content>.admin-subpage{padding-left:20px;padding-right:20px}}
+@media(max-width:700px){.admin-workspace-shell{display:block}.admin-workspace-sidebar{height:auto;min-height:0;position:relative;padding:12px 13px 10px}.admin-workspace-brand{height:52px;justify-content:flex-start;padding:0 5px 10px;margin-bottom:10px}.admin-workspace-brand img{width:145px;height:45px;object-position:left center}.admin-workspace-label,.admin-workspace-secure{display:none}.admin-workspace-sidebar nav{display:flex;overflow-x:auto;gap:4px;padding-bottom:2px}.admin-workspace-sidebar nav a{white-space:nowrap;min-height:36px;padding:0 10px;font-size:10px}.admin-workspace-topbar{height:54px;padding:0 15px;font-size:9px}.admin-workspace-topbar>div{display:none}.admin-workspace-content>.admin-subpage{min-height:calc(100vh - 106px);padding:0 12px 38px}.admin-workspace-content .admin-subpage>header{height:54px}.admin-workspace-content .admin-subpage>section{margin:28px auto}.admin-workspace-content .admin-subpage h1{font-size:30px}.admin-workspace-content .forms-inbox-layout{grid-template-columns:1fr}.admin-workspace-content .forms-inbox-filters{grid-template-columns:1fr}.admin-workspace-content .cms-module-grid{grid-template-columns:1fr}}
