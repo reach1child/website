@@ -55,7 +55,8 @@ export async function generateMetadata({params}:{params:Promise<{slug:string[]}>
   const {slug}=await params; const key=slug.join("/");
   const programme=programmeItems.find(p=>p.slug===key);
   const page=pages[key];
-  return {title:programme?programme.title+" | Reach One Child Foundation":page?page.title+" | Reach One Child Foundation":"Reach One Child Foundation",description:programme?.intro||page?.intro||"Reach One Child Foundation supports vulnerable children across Zambia through education, literacy, mentorship and community programmes."};
+  const newsItem=key.startsWith("news/")?newsItems.find(item=>item.slug===key.slice("news/".length)):undefined;
+  return {title:programme?programme.title+" | Reach One Child Foundation":newsItem?newsItem.title+" | Reach One Child Foundation":page?page.title+" | Reach One Child Foundation":"Reach One Child Foundation",description:programme?.intro||newsItem?.excerpt||page?.intro||"Reach One Child Foundation supports vulnerable children across Zambia through education, literacy, mentorship and community programmes."};
 }
 
 function Hero({title,eyebrow,intro,image}:{title:string;eyebrow:string;intro:string;image:string}){
