@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./inner-pages.css";
+import "./admin-auth.css";
 import IntroScreen from "./IntroScreen";
 import ScrollReveal from "./ScrollReveal";
 
