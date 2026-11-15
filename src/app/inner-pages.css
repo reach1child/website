@@ -9,3 +9,7 @@
 @media(max-width:760px){
   .inner-hero-content>p,.inner-section-heading p,.inner-section>p,.inner-section .inner-two-col p{font-size:14px;line-height:1.75}
 }
+
+/* Standard inner-page paragraphs */
+.inner-section p{font-size:16px;line-height:1.85}
+@media(max-width:760px){.inner-section p{font-size:14px;line-height:1.75}}
