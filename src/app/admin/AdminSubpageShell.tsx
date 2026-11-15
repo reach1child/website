@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AdminSubpageShell({children,active}:{children:React.ReactNode;active:"forms"|"cms"}) {
+export default function AdminSubpageShell({children,active}:{children:React.ReactNode;active:"dashboard"|"forms"|"cms"}) {
   return <div className="admin-workspace-shell">
     <aside className="admin-workspace-sidebar">
       <Link href="/admin/dashboard" className="admin-workspace-brand"><Image src="/images/branding/logo.jpeg" alt="Reach One Child Foundation" width={190} height={74} priority /></Link>
