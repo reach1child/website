@@ -16,8 +16,8 @@ export default function IntroScreen() {
     }
 
     sessionStorage.setItem(key, "1");
-    const exitTimer = window.setTimeout(() => setExiting(true), 2500);
-    const removeTimer = window.setTimeout(() => setVisible(false), 3000);
+    const exitTimer = window.setTimeout(() => setExiting(true), 5500);
+    const removeTimer = window.setTimeout(() => setVisible(false), 6000);
 
     return () => {
       window.clearTimeout(exitTimer);
