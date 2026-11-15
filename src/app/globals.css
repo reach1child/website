@@ -269,3 +269,10 @@ body p{font-size:16px}
 @media(max-width:760px){
   .container{width:calc(100% - 2 * clamp(18px,5.5vw,24px))}
 }
+
+
+/* Improve readability of the Vision and Mission statements */
+.about-section .vision-mission p{font-size:15px;line-height:1.7}
+@media(max-width:760px){
+  .about-section .vision-mission p{font-size:14px;line-height:1.65}
+}
