@@ -304,3 +304,67 @@
  .involved-modal .involved-form-message{grid-column:auto}
  .involved-modal .involved-enquiry-form>.button{margin-top:12px}
 }
+
+
+/* Full-viewport Get Involved enquiry overlay, detached from page content layout */
+.involved-modal-backdrop{
+ position:fixed!important;inset:0!important;z-index:99999!important;
+ width:100vw;height:100vh;height:100dvh;max-width:none!important;
+ margin:0!important;padding:18px!important;overflow-y:auto!important;
+ display:flex;align-items:center;justify-content:center;
+ background:rgba(2,9,34,.84);backdrop-filter:blur(6px);
+}
+.involved-modal{
+ position:relative;width:min(100%,940px)!important;
+ max-height:calc(100vh - 36px)!important;max-height:calc(100dvh - 36px)!important;
+ margin:auto!important;display:flex;flex-direction:column;overflow:hidden!important;
+ border-radius:12px;background:#fff;box-shadow:0 28px 100px #0008;
+}
+.involved-modal-heading{
+ flex:0 0 auto;position:relative;background:#fff;
+ padding:25px 32px 19px!important;align-items:flex-start;
+}
+.involved-modal-heading h2{font-size:clamp(25px,3vw,33px)!important}
+.involved-modal-close{
+ min-height:40px;padding:10px 17px!important;font-size:12px!important;
+ font-weight:800!important;white-space:nowrap;cursor:pointer;
+}
+.involved-modal .involved-enquiry-form{
+ flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+ padding:22px 32px 28px!important;
+}
+.involved-modal .involved-form-fields{
+ grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 18px!important;
+}
+.involved-modal .involved-form-fields label{font-size:12px;gap:7px}
+.involved-modal .involved-form-fields input,
+.involved-modal .involved-form-fields select,
+.involved-modal .involved-form-fields textarea{min-height:43px;padding:11px 12px;font-size:14px}
+.involved-modal .involved-form-fields textarea{min-height:100px}
+.involved-modal .involved-form-message{grid-column:1/-1}
+.involved-modal .involved-enquiry-form>.button{min-height:46px;margin-top:17px}
+@media(max-width:760px){
+ .involved-modal-backdrop{padding:0!important;align-items:stretch;overflow:hidden!important}
+ .involved-modal{
+  width:100%!important;height:100vh;height:100dvh;max-height:100vh!important;max-height:100dvh!important;
+  border-radius:0!important;margin:0!important;
+ }
+ .involved-modal-heading{
+  padding:18px 17px 15px!important;gap:12px;
+  box-shadow:0 3px 12px #0419680a;
+ }
+ .involved-modal-heading h2{font-size:23px!important;margin:6px 0}
+ .involved-modal-heading p{font-size:12px;line-height:1.55}
+ .involved-modal-close{min-height:40px;padding:9px 13px!important}
+ .involved-modal .involved-enquiry-form{
+  padding:17px 18px 28px!important;overflow-y:auto;
+ }
+ .involved-modal .involved-form-fields{grid-template-columns:1fr;gap:12px!important}
+ .involved-modal .involved-form-fields label{font-size:12px}
+ .involved-modal .involved-form-fields input,
+ .involved-modal .involved-form-fields select,
+ .involved-modal .involved-form-fields textarea{min-height:43px;font-size:14px}
+ .involved-modal .involved-form-fields textarea{min-height:95px}
+ .involved-modal .involved-form-message{grid-column:auto}
+ .involved-modal .involved-enquiry-form>.button{width:100%;min-height:48px}
+}
