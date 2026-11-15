@@ -312,3 +312,9 @@ body p{font-size:16px}
     transition-duration:.6s;
   }
 }
+
+
+/* Get involved page: focus on action choices without an introductory headline */
+.get-involved-page .involved-grid{grid-template-columns:1fr;max-width:900px}
+.get-involved-page .involved-actions>a:not(.button){grid-template-columns:36px minmax(0,1fr)}
+@media(max-width:760px){.get-involved-page .involved-actions>a:not(.button){grid-template-columns:28px minmax(0,1fr)}}
