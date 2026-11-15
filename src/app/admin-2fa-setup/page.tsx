@@ -18,8 +18,14 @@ export default function AdminTwoFactorSetupPage() {
     event.preventDefault(); setBusy(true); setError("");
     const result = await authClient.twoFactor.enable({ password, method: "totp" });
     setBusy(false);
-    if (result.error || !result.data) setError("Could not start authenticator setup. Check your password and try again.");
-    else { setTotpURI(result.data.totpURI); setBackupCodes(result.data.backupCodes || []); }
+    if (result.error || !result.data) {
+      setError("Could not start authenticator setup. Check your password and try again.");
+    } else if (result.data.method !== "totp") {
+      setError("The authenticator setup did not return a TOTP configuration. Please try again.");
+    } else {
+      setTotpURI(result.data.totpURI);
+      setBackupCodes(result.data.backupCodes || []);
+    }
   }
   async function verify(event: FormEvent) {
     event.preventDefault(); setBusy(true); setError("");
