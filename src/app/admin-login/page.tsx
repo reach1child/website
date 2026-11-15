@@ -14,10 +14,10 @@ export default function AdminLoginPage() {
   async function submit(event: FormEvent) {
     event.preventDefault();
     setBusy(true); setError("");
-    const result = await authClient.signIn.email({ email, password, callbackURL: "/admin" });
+    const result = await authClient.signIn.email({ email, password, callbackURL: "/admin/dashboard" });
     setBusy(false);
     if (result.error) setError("Sign-in failed. Check your details and try again.");
-    else router.replace("/admin");
+    else router.replace("/admin/dashboard");
   }
 
   return <main className="admin-auth-page"><section className="admin-auth-card">
