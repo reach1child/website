@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./inner-pages.css";
 import IntroScreen from "./IntroScreen";
 
 export const metadata: Metadata = {
