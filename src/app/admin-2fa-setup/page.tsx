@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import QRCode from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 import { authClient } from "@/lib/auth-client";
 
 export default function AdminTwoFactorSetupPage() {
@@ -36,7 +36,7 @@ export default function AdminTwoFactorSetupPage() {
       <form onSubmit={begin}><label htmlFor="setup-password">Confirm your administrator password</label><input id="setup-password" type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required /><button disabled={busy}>{busy ? "Preparing…" : "Set up two-factor authentication"}</button></form>
     </> : <>
       <p>Scan this QR code with your authenticator app, then enter the six-digit code it generates.</p>
-      <div className="admin-auth-qr"><QRCode value={totpURI} size={190} /></div>
+      <div className="admin-auth-qr"><QRCodeSVG value={totpURI} size={190} /></div>
       <p className="admin-auth-small">If you cannot scan the QR code, copy this setup URI into your authenticator app:</p><code className="admin-auth-uri">{totpURI}</code>
       {backupCodes.length>0 && <div className="admin-backup-codes"><strong>Save these recovery codes somewhere secure.</strong><div>{backupCodes.map(item=><code key={item}>{item}</code>)}</div></div>}
       <form onSubmit={verify}><label htmlFor="setup-code">Authenticator verification code</label><input id="setup-code" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} value={code} onChange={e=>setCode(e.target.value.replace(/\D/g,""))} required /><button disabled={busy || code.length!==6}>{busy ? "Verifying…" : "Verify and secure account"}</button></form>
