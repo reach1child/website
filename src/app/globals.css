@@ -99,3 +99,18 @@
   .programme-content h3{font-size:13px}
   .reach-numbers span{font-size:8px}
 }
+
+
+/* Give the foundation logo more presence in the mobile header */
+@media(max-width:760px){
+  .site-header{height:78px}
+  .brand{gap:11px}
+  .brand img{width:52px;height:52px}
+  .brand strong{font-size:11px}
+  .brand small{font-size:9px}
+  html{scroll-padding-top:86px}
+}
+@media(max-width:380px){
+  .site-header{height:74px}
+  .brand img{width:48px;height:48px}
+}
