@@ -31,6 +31,11 @@ export default function GetInvolvedForms() {
   const selected = enquiryTypes.find((item) => item.id === openForm);
 
   useEffect(() => {
+    const requestedForm = new URLSearchParams(window.location.search).get("form");
+    if (requestedForm === "sponsor") setOpenForm("sponsor");
+  }, []);
+
+  useEffect(() => {
     if (!openForm) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
