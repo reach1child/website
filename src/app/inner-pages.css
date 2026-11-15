@@ -213,7 +213,7 @@
 .involved-form-fields{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .involved-form-fields label{display:flex;flex-direction:column;gap:6px;color:var(--navy);font-size:11px;font-weight:800}
 .involved-form-fields label>span{display:inline;color:#8490a7;font-weight:500}
-.involved-form-fields input,.involved-form-fields select,.involved-form-fields textarea{width:100%;min-width:0;border:1px solid #dce2ed;border-radius:4px;background:#fff;padding:11px 12px;color:#24345c;font:400 13px/1.4 inherit;outline:none}
+.involved-form-fields input,.involved-form-fields select,.involved-form-fields textarea{width:100%;min-width:0;border:1px solid #dce2ed;border-radius:4px;background:#fff;padding:11px 12px;color:#24345c;font:400 13px/1.4 Manrope,sans-serif;outline:none}
 .involved-form-fields input:focus,.involved-form-fields select:focus,.involved-form-fields textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px #ee31351a}
 .involved-form-fields input::placeholder,.involved-form-fields textarea::placeholder{color:#a0a8b8}
 .involved-form-message{grid-column:1/-1}
