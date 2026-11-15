@@ -7,6 +7,7 @@ export default function IntroScreen() {
   const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
+    if (window.location.pathname.startsWith("/admin")) { setVisible(false); return; }
     const key = "r1cf-intro-seen";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
