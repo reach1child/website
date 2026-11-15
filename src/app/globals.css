@@ -232,3 +232,23 @@
   .about-section .vision-mission p{font-size:10px;line-height:1.55;margin-top:7px}
   .about-section .text-link{margin-top:16px}
 }
+
+
+/* Desktop: place Who We Are copy alongside the image; retain the stacked mobile layout */
+@media(min-width:761px){
+  .about-section .about-grid{
+    display:grid;
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    align-items:center;
+    justify-content:initial;
+    gap:clamp(32px,5vw,64px);
+    max-width:none;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .about-section .about-visual{padding:0 24px 26px 0}
+  .about-section .about-visual>img{height:360px;width:100%;object-fit:cover;border-radius:9px}
+  .about-section .about-visual:before{left:-8px;top:-8px;width:65px;height:65px}
+  .about-section .about-card{right:0;bottom:0}
+  .about-section .about-copy{min-width:0}
+}
