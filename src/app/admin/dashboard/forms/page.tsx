@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import AdminSubpageShell from "../../AdminSubpageShell";
 
 type Submission = {
   id: string; form_type: string; form_title: string; name: string; email: string;
@@ -49,8 +50,8 @@ export default function FormsInbox() {
     total:items.length, fresh:items.filter(x=>x.status==="new").length
   }),[items]);
 
-  return <main className="admin-subpage forms-inbox-page">
-    <header><a className="admin-back" href="/admin/dashboard">← Back to Foundation Management</a><span>FOUNDATION MANAGEMENT / FORMS & ENQUIRIES</span></header>
+  return <AdminSubpageShell active="forms"><main className="admin-subpage forms-inbox-page">
+    <header><a className="admin-back" href="/admin/dashboard">Dashboard</a><span>FOUNDATION MANAGEMENT / FORMS & ENQUIRIES</span></header>
     <section className="forms-inbox-content">
       <span className="admin-eyebrow">FOUNDATION MANAGEMENT</span>
       <h1>Forms &amp; enquiries</h1>
@@ -83,7 +84,7 @@ export default function FormsInbox() {
           </>}
         </aside>
       </div>
-      <a className="admin-return" href="/admin/dashboard">← Back to Foundation Management</a>
+      <a className="admin-return" href="/admin/dashboard">Return to dashboard</a>
     </section>
-  </main>;
+  </main></AdminSubpageShell>;
 }
