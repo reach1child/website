@@ -145,3 +145,11 @@
     background-position:50% center;
   }
 }
+
+
+/* Desktop hero copy: lower the headline so it clears the boy's face */
+@media(min-width:761px){
+  .hero-copy{
+    transform:translateY(68px);
+  }
+}
