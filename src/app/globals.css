@@ -131,3 +131,17 @@
   .hero{min-height:530px}
   .hero-content{min-height:530px;padding-bottom:72px}
 }
+
+
+/* Hero image framing: fill the full section and center both children */
+.hero-photo{
+  inset:0;
+  background-size:cover;
+  background-position:50% 38%;
+}
+@media(max-width:760px){
+  .hero-photo{
+    inset:0;
+    background-position:50% center;
+  }
+}
