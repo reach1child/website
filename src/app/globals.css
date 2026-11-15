@@ -282,3 +282,10 @@ body p{font-size:16px}
 @media(max-width:760px){
   .about-section .vision-mission{display:none!important}
 }
+
+
+/* Align Follow us heading and social icons to the right in the mobile footer */
+@media(max-width:760px){
+  .footer-bottom-social{align-items:flex-end;text-align:right}
+  .footer-bottom-social .social-icons{justify-content:flex-end}
+}
