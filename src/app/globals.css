@@ -276,3 +276,9 @@ body p{font-size:16px}
 @media(max-width:760px){
   .about-section .vision-mission p{font-size:14px;line-height:1.65}
 }
+
+
+/* Hide the Vision and Mission cards on the homepage on mobile only */
+@media(max-width:760px){
+  .about-section .vision-mission{display:none!important}
+}
