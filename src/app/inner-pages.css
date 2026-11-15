@@ -381,3 +381,27 @@
   .get-involved-page .involved-grid{display:block;width:min(900px,calc(100% - 48px));max-width:900px;margin-left:auto;margin-right:auto}
   .get-involved-page .involved-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+
+/* Style the Get Started call-to-action as a clear button */
+.get-involved-page .involved-form-copy em{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:8px;
+  padding:10px 18px;
+  border:1px solid #ee3135;
+  border-radius:4px;
+  background:#ee3135;
+  color:#fff;
+  font:800 11px/1.2 Manrope,sans-serif;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.get-involved-page .involved-form-toggle:hover .involved-form-copy em{
+  background:#d92329;
+  border-color:#d92329;
+  transform:translateY(-1px);
+}
