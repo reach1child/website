@@ -18,7 +18,8 @@ export default function GetInvolvedForms() {
     event.preventDefault();
     if(submitting) return;
     setSubmitting(true); setFeedback("");
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     try {
       const response = await fetch("/api/form-submissions", {
         method:"POST", headers:{"Content-Type":"application/json"},
@@ -32,7 +33,7 @@ export default function GetInvolvedForms() {
       const result = await response.json();
       if(!response.ok) throw new Error(result.error||"We could not submit your form. Please try again.");
       setFeedback("Thank you. Your submission has been received by Reach One Child Foundation.");
-      event.currentTarget.reset();
+      form.reset();
     } catch(error) {
       setFeedback(error instanceof Error?error.message:"Submission failed. Please try again.");
     } finally { setSubmitting(false); }
