@@ -32,7 +32,7 @@ export default function IntroScreen() {
       <div className="intro-content">
         <img className="intro-logo" src="/images/branding/logo.jpeg" alt="Reach One Child Foundation" />
         <div className="intro-name">REACH ONE CHILD FOUNDATION</div>
-        <p>Every child deserves a chance to learn, grow and lead.</p>
+        <p>For Every Child, Education.</p>
         <span className="intro-pulse-line" aria-hidden="true"><i /></span>
       </div>
       <button className="intro-skip" type="button" onClick={() => { setExiting(true); window.setTimeout(() => setVisible(false), 500); }}>Skip intro <span aria-hidden="true">→</span></button>
