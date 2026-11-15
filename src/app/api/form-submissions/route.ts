@@ -36,8 +36,7 @@ async function requireAdmin() {
 async function enforceSubmissionLimit(request: Request, pool: Pool) {
   const secret = process.env.BETTER_AUTH_SECRET;
   if (!secret) throw new Error("Rate-limit signing secret is not configured.");
-  const forwarded = request.headers.get("x-real-ip") ||
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const forwarded = request.headers.get("x-real-ip") || "unknown";
   const ipHash = createHmac("sha256", secret).update(forwarded).digest("hex");
   const now = Date.now();
   const windowStart = new Date(Math.floor(now / 900_000) * 900_000);
