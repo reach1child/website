@@ -32,7 +32,7 @@ export default function AdminTwoFactorSetupPage() {
     const result = await authClient.twoFactor.verifyTotp({ code, trustDevice: false });
     setBusy(false);
     if (result.error) setError("The code was not accepted. Check your authenticator and try again.");
-    else router.replace("/admin");
+    else router.replace("/admin/dashboard");
   }
 
   return <main className="admin-auth-page"><section className="admin-auth-card admin-auth-wide">
