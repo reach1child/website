@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./inner-pages.css";
 import IntroScreen from "./IntroScreen";
+import ScrollReveal from "./ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Reach One Child Foundation | Every Child Can Thrive",
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><IntroScreen />{children}</body></html>;
+  return <html lang="en"><body><IntroScreen /><ScrollReveal />{children}</body></html>;
 }
