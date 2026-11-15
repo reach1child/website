@@ -263,9 +263,3 @@ body p{font-size:16px}
   .programme-content p{font-size:12px}
 }
 
-
-/* Justify main content paragraphs for a clean, consistent text edge */
-.about-copy>p,.reach-grid>div>p,.section-heading>p,.story-copy>p,.get-involved>div>div>p,.partners-heading p,.programme-content p{
-  text-align:justify;
-  text-justify:inter-word;
-}
