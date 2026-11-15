@@ -11,21 +11,31 @@ const enquiryTypes = [
 
 export default function GetInvolvedForms() {
   const [openForm, setOpenForm] = useState<string | null>(null);
+  const [submitting,setSubmitting] = useState(false);
+  const [feedback,setFeedback] = useState("");
 
-  function submitEnquiry(event: FormEvent<HTMLFormElement>, subject: string) {
+  async function submitEnquiry(event: FormEvent<HTMLFormElement>, item: typeof enquiryTypes[number]) {
     event.preventDefault();
+    if(submitting) return;
+    setSubmitting(true); setFeedback("");
     const data = new FormData(event.currentTarget);
-    const lines = [
-      "Website enquiry: " + subject, "",
-      "Name: " + data.get("name"),
-      "Email: " + data.get("email"),
-      "Phone / WhatsApp: " + (data.get("phone") || "Not provided"),
-      "Organisation: " + (data.get("organisation") || "Not provided"),
-      "Location: " + (data.get("location") || "Not provided"),
-      "Area of interest: " + (data.get("interest") || "Not specified"), "",
-      "Message:", data.get("message") || "No additional message",
-    ];
-    window.location.href = "mailto:reach1childfoundation@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
+    try {
+      const response = await fetch("/api/form-submissions", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          formType:item.id, formTitle:item.subject,
+          name:data.get("name"), email:data.get("email"), phone:data.get("phone"),
+          organisation:data.get("organisation"), location:data.get("location"),
+          interest:data.get("interest"), message:data.get("message")
+        })
+      });
+      const result = await response.json();
+      if(!response.ok) throw new Error(result.error||"We could not submit your form. Please try again.");
+      setFeedback("Thank you. Your submission has been received by Reach One Child Foundation.");
+      event.currentTarget.reset();
+    } catch(error) {
+      setFeedback(error instanceof Error?error.message:"Submission failed. Please try again.");
+    } finally { setSubmitting(false); }
   }
 
   const selected = enquiryTypes.find((item) => item.id === openForm);
@@ -55,7 +65,7 @@ export default function GetInvolvedForms() {
         <div className="involved-actions">
           {enquiryTypes.map((item) => (
             <article className="involved-form-card" key={item.id}>
-              <button className="involved-form-toggle" type="button" onClick={() => setOpenForm(item.id)}>
+              <button className="involved-form-toggle" type="button" onClick={() => {setOpenForm(item.id);setFeedback("");}}>
                 <span className="involved-form-copy">
                   <strong>{item.title}</strong>
                   <small>{item.description}</small>
@@ -67,13 +77,13 @@ export default function GetInvolvedForms() {
         </div>
       </div>
       {selected && typeof document !== "undefined" && createPortal(
-        <div className="involved-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpenForm(null); }}>
+        <div className="involved-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) setOpenForm(null); }}>
           <section className="involved-modal" role="dialog" aria-modal="true" aria-labelledby="involved-modal-title">
             <div className="involved-modal-heading">
               <div><span className="eyebrow">Get involved</span><h2 id="involved-modal-title">{selected.title}</h2><p>{selected.description}</p></div>
               <button className="involved-modal-close" type="button" onClick={() => setOpenForm(null)}>Close</button>
             </div>
-            <form className="involved-enquiry-form" onSubmit={(event) => submitEnquiry(event, selected.subject)}>
+            <form className="involved-enquiry-form" onSubmit={(event) => submitEnquiry(event, selected)}>
               <div className="involved-form-fields">
                 <label>Full name<input name="name" autoComplete="name" required placeholder="Your full name" /></label>
                 <label>Email address<input name="email" type="email" autoComplete="email" required placeholder="you@example.com" /></label>
@@ -83,8 +93,9 @@ export default function GetInvolvedForms() {
                 <label>{selected.extraLabel}<select name="interest" defaultValue=""><option value="">Please select</option>{selected.extraOptions.map((option) => <option key={option}>{option}</option>)}</select></label>
                 <label className="involved-form-message">Tell us a little more<textarea name="message" rows={4} placeholder="Share any details that will help us understand your enquiry." /></label>
               </div>
-              <button className="button button-red" type="submit">Send enquiry</button>
-              <p className="involved-form-note">Your email app will open with your completed enquiry ready to send to R1CF.</p>
+              {feedback&&<p className="involved-form-feedback" role="status">{feedback}</p>}
+              <button className="button button-red" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit"}</button>
+              <p className="involved-form-note">Your submission will be securely recorded for the R1CF team to review.</p>
             </form>
           </section>
         </div>,
