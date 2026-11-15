@@ -252,3 +252,13 @@
   .about-section .about-card{right:0;bottom:0}
   .about-section .about-copy{min-width:0}
 }
+
+
+/* Readable paragraph typography across the site */
+body p{font-size:16px}
+.about-copy>p,.reach-grid>div>p,.section-heading>p,.story-copy>p,.get-involved>div>div>p,.partners-heading p{font-size:16px}
+@media(max-width:760px){
+  body p{font-size:14px}
+  .about-copy>p,.reach-grid>div>p,.section-heading>p,.story-copy>p,.get-involved>div>div>p,.partners-heading p{font-size:14px}
+  .programme-content p{font-size:12px}
+}
