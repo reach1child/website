@@ -114,3 +114,20 @@
   .site-header{height:74px}
   .brand img{width:48px;height:48px}
 }
+
+
+/* Mobile hero: keep children's faces clear and bring the message closer to impact figures */
+@media(max-width:760px){
+  .hero{min-height:550px}
+  .hero-content{
+    min-height:550px;
+    align-items:flex-end;
+    padding-top:0;
+    padding-bottom:76px;
+  }
+  .hero-copy{padding-bottom:0}
+}
+@media(max-width:380px){
+  .hero{min-height:530px}
+  .hero-content{min-height:530px;padding-bottom:72px}
+}
