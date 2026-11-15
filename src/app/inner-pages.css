@@ -456,3 +456,57 @@
  .admin-card-content li{font-size:12px}
  .admin-card-footer{min-height:60px}
 }
+
+
+/* Central forms and enquiries inbox */
+.forms-inbox-content{max-width:1180px!important;margin:52px auto 0!important}
+.forms-inbox-page{background:#f7f8fc;min-height:75vh;padding-bottom:65px}
+.forms-inbox-content h1{font-size:clamp(38px,5vw,54px);letter-spacing:-.04em;margin:12px 0}
+.forms-inbox-lede{max-width:720px;color:#68748d;font-size:14px;line-height:1.8}
+.forms-inbox-stats{display:flex;align-items:center;gap:30px;margin:28px 0;padding:18px 22px;background:#fff;border:1px solid #e5e9f1;border-radius:7px}
+.forms-inbox-stats div{display:flex;flex-direction:column;gap:4px}
+.forms-inbox-stats strong{font:800 25px Manrope;color:#041968}
+.forms-inbox-stats span{font:800 8px Manrope;letter-spacing:.13em;color:#8d98aa}
+.forms-inbox-stats button{margin-left:auto;border:1px solid #dfe4ed;background:#fff;border-radius:4px;padding:10px 15px;color:#041968;font:700 11px Manrope;cursor:pointer}
+.forms-inbox-filters{display:grid;grid-template-columns:1fr 1fr 2fr;gap:14px;margin-bottom:18px}
+.forms-inbox-filters label,.forms-inbox-status-control{display:flex;flex-direction:column;gap:7px;font:700 10px Manrope;color:#596780}
+.forms-inbox-filters select,.forms-inbox-filters input,.forms-inbox-status-control select{width:100%;min-height:43px;border:1px solid #dfe4ed;border-radius:4px;padding:0 12px;background:#fff;color:#041968;font:13px 'DM Sans',Arial,sans-serif}
+.forms-inbox-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:16px;align-items:start}
+.forms-inbox-list,.forms-inbox-detail{background:#fff;border:1px solid #e5e9f1;border-radius:7px;overflow:hidden}
+.forms-inbox-list{max-height:650px;overflow-y:auto}
+.forms-inbox-row{display:flex;flex-direction:column;gap:8px;width:100%;padding:17px 19px;text-align:left;border:0;border-bottom:1px solid #edf0f5;background:#fff;cursor:pointer}
+.forms-inbox-row:hover,.forms-inbox-row.selected{background:#f7f8fc}
+.forms-inbox-row.selected{box-shadow:inset 3px 0 #ee3135}
+.forms-inbox-row-top,.forms-inbox-row-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.forms-inbox-row-top b{font:700 13px Manrope;color:#041968}
+.forms-inbox-row time,.forms-inbox-detail time{font-size:10px;color:#9aa3b4}
+.forms-inbox-row-type{font-size:11px;color:#68748d}
+.forms-inbox-row-bottom small{font-size:10px;color:#8d98aa;overflow-wrap:anywhere}
+.submission-status{font:800 8px Manrope;letter-spacing:.08em;text-transform:uppercase;font-style:normal}
+.status-new{color:#c17a17}.status-reviewing{color:#3565a9}.status-resolved{color:#39805c}
+.forms-inbox-detail{padding:23px;min-height:290px}
+.forms-inbox-detail-top{display:flex;justify-content:space-between;gap:12px;align-items:center;font:800 9px Manrope;letter-spacing:.1em;text-transform:uppercase;color:#ee3135}
+.forms-inbox-detail h2{font:800 23px Manrope;color:#041968;margin:22px 0 5px}
+.forms-inbox-detail>a{font-size:12px;color:#526a9b}
+.forms-inbox-detail>p{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#53617a;margin:17px 0}
+.forms-inbox-detail>p b,.forms-inbox-message>b{font:800 9px Manrope;letter-spacing:.1em;text-transform:uppercase;color:#9aa3b4}
+.forms-inbox-message{padding:15px;background:#f7f8fc;margin:18px 0}
+.forms-inbox-message p{font-size:12px;line-height:1.7;color:#53617a;white-space:pre-wrap;overflow-wrap:anywhere}
+.forms-inbox-status-control{margin-top:18px}
+.forms-inbox-empty{padding:26px;color:#929caf;font-size:12px;line-height:1.6}
+.forms-inbox-error,.involved-form-feedback{padding:12px 14px;background:#fff5f4;color:#a33232;font-size:12px;border-left:3px solid #ee3135}
+.admin-module-action{display:inline-block;margin-top:12px;color:#ee3135;font:800 10px Manrope;text-decoration:none}
+.admin-module-action:hover{text-decoration:underline}
+.involved-enquiry-form button:disabled{opacity:.65;cursor:wait}
+.involved-form-feedback{margin:0 0 14px}
+@media(max-width:760px){
+ .forms-inbox-content{margin:34px auto 0!important}
+ .forms-inbox-stats{gap:18px;padding:14px}
+ .forms-inbox-stats strong{font-size:22px}
+ .forms-inbox-stats button{padding:9px;font-size:10px}
+ .forms-inbox-filters{grid-template-columns:1fr;gap:11px}
+ .forms-inbox-layout{grid-template-columns:1fr}
+ .forms-inbox-list{max-height:420px}
+ .forms-inbox-detail{min-height:220px;padding:19px}
+ .forms-inbox-detail-top{align-items:flex-start;flex-direction:column}
+}
