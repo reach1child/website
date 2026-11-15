@@ -48,11 +48,6 @@ export default function GetInvolvedForms() {
   return (
     <section className="get-involved get-involved-page">
       <div className="container involved-grid">
-        <div className="involved-intro">
-          <span className="eyebrow eyebrow-light">Take the next step</span>
-          <h2>Choose how you would like to get involved.</h2>
-          <p>Select an option below and complete a short enquiry form. Our team will be glad to hear from you.</p>
-        </div>
         <div className="involved-actions">
           {enquiryTypes.map((item) => (
             <article className="involved-form-card" key={item.id}>
@@ -60,7 +55,7 @@ export default function GetInvolvedForms() {
                 <span className="involved-form-copy">
                   <strong>{item.title}</strong>
                   <small>{item.description}</small>
-                  <em>Make an enquiry</em>
+                  <em>Get Started</em>
                 </span>
               </button>
             </article>
