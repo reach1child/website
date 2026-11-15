@@ -318,3 +318,16 @@ body p{font-size:16px}
 .get-involved-page .involved-grid{grid-template-columns:1fr;max-width:900px}
 .get-involved-page .involved-actions>a:not(.button){grid-template-columns:36px minmax(0,1fr)}
 @media(max-width:760px){.get-involved-page .involved-actions>a:not(.button){grid-template-columns:28px minmax(0,1fr)}}
+
+
+/* Get Involved actions arranged as a balanced 2-by-2 grid */
+.get-involved-page .involved-grid{max-width:1000px}
+.get-involved-page .involved-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.get-involved-page .involved-actions>a:not(.button){grid-template-columns:36px minmax(0,1fr);align-items:start;gap:14px;min-height:145px;padding:24px 22px;background:#ffffff10;border:1px solid #ffffff30;border-radius:8px}
+.get-involved-page .involved-actions>a:not(.button)>span{padding-top:2px}
+.get-involved-page .involved-actions .involved-donate{grid-column:1/-1;margin-top:8px}
+@media(max-width:760px){
+ .get-involved-page .involved-actions{grid-template-columns:1fr;gap:11px}
+ .get-involved-page .involved-actions>a:not(.button){min-height:0;padding:18px 16px}
+ .get-involved-page .involved-actions .involved-donate{grid-column:auto}
+}
