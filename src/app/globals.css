@@ -173,3 +173,16 @@
 @keyframes intro-progress{0%{transform:translateX(-20px)}100%{transform:translateX(56px)}}
 @media(max-width:760px){.intro-logo{width:104px;height:104px}.intro-name{font-size:13px;letter-spacing:.1em}.intro-content p{max-width:280px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.intro-screen{transition:none}.intro-content,.intro-logo,.intro-pulse-line i{animation:none!important}}
+
+
+/* Minimal footer with accessible social icon links */
+.footer-social-only{display:flex;justify-content:center;padding:34px 0!important}
+.footer-social{display:flex;flex-direction:column;align-items:center;gap:15px}
+.footer-social h3{margin:0}
+.social-icons{display:flex;align-items:center;gap:18px}
+.social-icons a{width:42px;height:42px;display:grid;place-items:center;border:1px solid #ffffff55;border-radius:50%;color:#fff;transition:background .2s ease,transform .2s ease}
+.social-icons a:hover{background:var(--red);transform:translateY(-2px)}
+.social-icons svg{width:19px;height:19px;fill:currentColor;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.social-icons svg rect,.social-icons svg circle{fill:none}
+.social-icons svg .social-icon-fill{fill:currentColor;stroke:none}
+@media(max-width:760px){.footer-social-only{padding:28px 0!important}.social-icons a{width:40px;height:40px}}
