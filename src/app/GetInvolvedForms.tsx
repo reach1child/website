@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 const enquiryTypes = [
   {
@@ -44,7 +44,7 @@ const enquiryTypes = [
 export default function GetInvolvedForms() {
   const [openForm, setOpenForm] = useState<string | null>(null);
 
-  function submitEnquiry(event: React.FormEvent<HTMLFormElement>, subject: string) {
+  function submitEnquiry(event: FormEvent<HTMLFormElement>, subject: string) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
