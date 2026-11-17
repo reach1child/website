@@ -539,3 +539,89 @@ body p{font-size:16px}
 .donate-thankyou-card p{max-width:510px;margin:0 auto 27px;color:#66728a;font-size:15px;line-height:1.8}
 .donate-thankyou-card .button{display:inline-flex;justify-content:center;min-height:48px;align-items:center;padding:0 24px;text-decoration:none}
 @media(max-width:600px){.donate-thankyou-wrap{min-height:58vh;padding:36px 17px}.donate-thankyou-card{padding:30px 22px}.donate-thankyou-card p{font-size:13px}}
+
+
+/* Donation modal brand header: logo left, message right */
+.donation-modal .donation-modal-heading{
+  display:grid;
+  grid-template-columns:112px minmax(0,1fr) auto;
+  align-items:center;
+  gap:24px;
+  padding:27px 30px 24px;
+  border-bottom:1px solid #e9edf4;
+}
+.donation-modal .donation-modal-logo{
+  width:104px;
+  height:104px;
+  object-fit:contain;
+  display:block;
+}
+.donation-modal .donation-modal-title-wrap{min-width:0}
+.donation-modal .donation-modal-title-wrap h2{
+  max-width:490px;
+  margin:0;
+  color:var(--navy);
+  font:800 clamp(25px,3vw,35px)/1.18 Manrope,sans-serif;
+  letter-spacing:-.04em;
+  text-wrap:balance;
+}
+.donation-modal .donation-modal-title-wrap h2 em{color:var(--red);font-style:normal}
+.donation-modal .donation-modal-heading .involved-modal-close{align-self:start;white-space:nowrap}
+@media(max-width:760px){
+  .donation-modal-backdrop{align-items:stretch;padding:0}
+  .donation-modal{
+    width:100%;
+    max-height:100dvh;
+    height:100dvh;
+    border-radius:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  .donation-modal .donation-modal-heading{
+    grid-template-columns:68px minmax(0,1fr);
+    gap:13px;
+    padding:18px 16px 16px;
+    position:relative;
+    padding-right:74px;
+  }
+  .donation-modal .donation-modal-logo{width:66px;height:66px}
+  .donation-modal .donation-modal-title-wrap h2{
+    font-size:clamp(19px,5.6vw,25px);
+    line-height:1.2;
+    letter-spacing:-.035em;
+  }
+  .donation-modal .donation-modal-heading .involved-modal-close{
+    position:absolute;
+    right:14px;
+    top:13px;
+    padding:7px 9px;
+    font-size:10px;
+  }
+  .donation-modal .donation-form{padding:15px 16px 26px}
+  .donation-modal .donation-steps{margin-bottom:19px}
+  .mobile-menu nav .nav-donate{
+    display:flex;
+    width:100%;
+    min-height:46px;
+    align-items:center;
+    justify-content:center;
+    padding:0 16px;
+    margin:12px 0 2px;
+    border:0;
+    border-radius:5px;
+    background:var(--red);
+    color:#fff;
+    box-shadow:0 7px 18px #ee31352b;
+    font:700 13px 'DM Sans',Arial,sans-serif;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mobile-menu nav .nav-donate:hover,
+  .mobile-menu nav .nav-donate:focus-visible{background:#d92329;color:#fff}
+}
+@media(max-width:380px){
+  .donation-modal .donation-modal-heading{grid-template-columns:56px minmax(0,1fr);gap:10px;padding-left:13px}
+  .donation-modal .donation-modal-logo{width:54px;height:54px}
+  .donation-modal .donation-modal-title-wrap h2{font-size:18px}
+  .donation-modal .donation-form{padding-left:12px;padding-right:12px}
+}
