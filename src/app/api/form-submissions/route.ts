@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     const name = clean(body.name, 160);
     const email = clean(body.email, 254).toLowerCase();
     if (!formTypes.has(formType) || !formTitle || !name ||
-        !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Please check the required fields and try again." }, { status: 400 });
     }
     const result = await pool.query(
