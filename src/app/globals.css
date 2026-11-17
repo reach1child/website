@@ -755,3 +755,42 @@ body p{font-size:16px}
   .donation-modal .donation-modal-logo{width:50px;height:50px}
   .donation-modal .donation-modal-title-wrap h2{font-size:18px}
 }
+
+
+/* Keep donation amount heading and currency selector on one shared line. */
+.donation-modal .donation-field-heading{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:nowrap;
+  gap:10px;
+}
+.donation-modal .donation-field-heading>span{
+  flex:0 1 auto;
+  white-space:nowrap;
+}
+.donation-modal .donation-field-heading>label{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+  flex:0 1 auto;
+  white-space:nowrap;
+}
+.donation-modal .donation-field-heading select{
+  width:auto;
+  max-width:min(52vw,250px);
+  min-width:0;
+}
+@media(max-width:420px){
+  .donation-modal .donation-field-heading{gap:7px}
+  .donation-modal .donation-field-heading>span{font-size:12px}
+  .donation-modal .donation-field-heading>label{font-size:10px;gap:5px}
+  .donation-modal .donation-field-heading select{
+    max-width:clamp(112px,37vw,155px);
+    padding:8px 6px;
+    font-size:10px;
+  }
+}
