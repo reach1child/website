@@ -52,7 +52,7 @@ export default function DonateForm() {
     finally {setSubmitting(false);}
   }
 
-  return <form className="donation-form donation-wizard" onSubmit={submit}>
+  return <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
     <div className="donation-steps" aria-label="Donation progress">
       {[["1","Your gift"],["2","Your details"],["3","Payment"]].map(([number,label],index)=><div key={number} className={"donation-step"+(step===index+1?" active":step>index+1?" complete":"")}><span>{number}</span><small>{label}</small></div>)}
     </div>
