@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 
 const amounts = [50, 100, 250, 500, 1000];
 
 export default function DonateForm() {
+  const [isOpen,setIsOpen] = useState(false);
   const [step,setStep] = useState(1);
   const [frequency,setFrequency] = useState<"once"|"monthly">("once");
   const [currency,setCurrency] = useState<"ZMW"|"USD">("ZMW");
@@ -50,7 +52,25 @@ export default function DonateForm() {
     finally {setSubmitting(false);}
   }
 
-  return <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape" && !submitting) setIsOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", closeOnEscape); };
+  }, [isOpen, submitting]);
+
+  return <>
+    <button className="button button-red donation-open-trigger" type="button" onClick={() => { setStep(1); setFeedback(""); setIsOpen(true); }}>Donate</button>
+    {isOpen && typeof document !== "undefined" && createPortal(
+      <div className="involved-modal-backdrop donation-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) setIsOpen(false); }}>
+        <section className="involved-modal donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
+          <div className="involved-modal-heading">
+            <div><span className="eyebrow">SUPPORT R1CF</span><h2 id="donation-modal-title">Make your donation</h2><p>Choose an amount that feels right for you. Your support helps children across Zambia.</p></div>
+            <button className="involved-modal-close" type="button" disabled={submitting} onClick={() => setIsOpen(false)}>Close</button>
+          </div>
+          <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
     <div className="donation-steps" aria-label="Donation progress">
       {[["1","Your gift"],["2","Your details"],["3","Payment"]].map(([number,label],index)=><div key={number} className={"donation-step"+(step===index+1?" active":step>index+1?" complete":"")}><span>{number}</span><small>{label}</small></div>)}
     </div>
@@ -94,5 +114,10 @@ export default function DonateForm() {
       {feedback&&<p className={"donation-feedback"+(sent?" success":"")} role="status">{feedback}</p>}
       {!sent&&<><div className="donation-step-actions"><button className="donation-back-button" type="button" onClick={()=>{setFeedback("");setStep(2);}}>Back</button><button className="button button-red donation-submit" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit donation intention"}</button></div><p className="donation-secure-note">After submitting, we’ll email you a verification link. Your donation intention reaches the R1CF team only after you verify your email. This does not process a payment.</p></>}
     </section>}
-  </form>;
+          </form>
+        </section>
+      </div>,
+      document.body
+    )}
+  </>;
 }
