@@ -343,3 +343,142 @@ body p{font-size:16px}
 @media(min-width:761px) and (max-width:1000px){
   .get-involved-page .involved-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+
+/* Foundation Management — refined submission action buttons */
+.forms-inbox-row-wrap{
+  display:flex;
+  align-items:stretch;
+  gap:10px;
+  padding:10px;
+  margin-bottom:10px;
+  border:1px solid #e7ebf3;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 3px 12px #04196808;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.forms-inbox-row-wrap:hover{
+  border-color:#cbd4e8;
+  box-shadow:0 8px 22px #04196810;
+  transform:translateY(-1px);
+}
+.forms-inbox-row-wrap.selected{
+  border-color:#9eadd6;
+  box-shadow:0 0 0 3px #0419680c;
+}
+.forms-inbox-row-wrap .forms-inbox-row{
+  flex:1;
+  min-width:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  border-radius:7px;
+}
+.forms-inbox-row-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding-left:10px;
+  border-left:1px solid #edf0f5;
+}
+.forms-inbox-row-actions button,
+.forms-inbox-edit-actions button,
+.forms-inbox-detail-top button{
+  min-height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 13px;
+  border:1px solid #dce3f0;
+  border-radius:7px;
+  background:#f6f8fc;
+  color:#041968;
+  font:700 11px 'DM Sans',Arial,sans-serif;
+  letter-spacing:.01em;
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.forms-inbox-row-actions button:hover,
+.forms-inbox-edit-actions button:hover,
+.forms-inbox-detail-top button:hover{
+  background:#eaf0ff;
+  border-color:#b9c7e6;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px #04196812;
+}
+.forms-inbox-row-actions button.danger,
+.forms-inbox-edit-actions button.danger{
+  color:#c3262b;
+  border-color:#f2d0d1;
+  background:#fff7f7;
+}
+.forms-inbox-row-actions button.danger:hover,
+.forms-inbox-edit-actions button.danger:hover{
+  color:#fff;
+  background:#d92f35;
+  border-color:#d92f35;
+}
+.forms-inbox-edit-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+.forms-inbox-edit-actions button[type="submit"]{
+  color:#fff;
+  background:#041968;
+  border-color:#041968;
+  padding:0 18px;
+}
+.forms-inbox-edit-actions button[type="submit"]:hover{
+  color:#fff;
+  background:#0b2b82;
+  border-color:#0b2b82;
+}
+.forms-inbox-edit-actions button:disabled{
+  opacity:.55;
+  cursor:wait;
+  transform:none;
+  box-shadow:none;
+}
+.forms-inbox-edit-form{
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+.forms-inbox-edit-form>label{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  color:#34405c;
+  font-size:11px;
+  font-weight:700;
+}
+.forms-inbox-edit-form input,
+.forms-inbox-edit-form textarea{
+  width:100%;
+  min-height:42px;
+  padding:10px 12px;
+  border:1px solid #dce3ef;
+  border-radius:7px;
+  background:#fff;
+  color:#102044;
+  font:400 13px 'DM Sans',Arial,sans-serif;
+  outline:none;
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.forms-inbox-edit-form textarea{resize:vertical;min-height:110px}
+.forms-inbox-edit-form input:focus,
+.forms-inbox-edit-form textarea:focus{
+  border-color:#536ba9;
+  box-shadow:0 0 0 3px #04196812;
+}
+.forms-inbox-detail-top button{min-height:32px}
+@media(max-width:760px){
+  .forms-inbox-row-wrap{gap:7px;padding:8px;border-radius:10px}
+  .forms-inbox-row-actions{flex-direction:column;justify-content:center;gap:6px;padding-left:7px}
+  .forms-inbox-row-actions button{min-height:34px;min-width:66px;padding:0 9px;font-size:10px}
+  .forms-inbox-edit-actions{gap:8px}
+  .forms-inbox-edit-actions button{flex:1;min-height:42px}
+}
