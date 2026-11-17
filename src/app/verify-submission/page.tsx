@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SiteFooter, SiteHeader } from "../SiteChrome";
 
 export default function VerifySubmissionPage() {
   const [token, setToken] = useState("");
@@ -29,7 +30,9 @@ export default function VerifySubmissionPage() {
   }
 
   return (
-    <main style={{ minHeight: "70vh", display: "grid", placeItems: "center", padding: "48px 20px", background: "#f6f8fc" }}>
+    <main className="verification-page">
+      <SiteHeader />
+      <div style={{ minHeight: "70vh", display: "grid", placeItems: "center", padding: "48px 20px", background: "#f6f8fc" }}>
       <section style={{ width: "100%", maxWidth: 560, background: "#fff", padding: "clamp(28px, 6vw, 52px)", borderRadius: 16, boxShadow: "0 12px 40px rgba(4,25,104,.10)", textAlign: "center" }}>
         <p style={{ color: "#EE3135", fontWeight: 700, letterSpacing: ".12em", fontSize: 12 }}>REACH ONE CHILD FOUNDATION</p>
         <h1 style={{ color: "#041968", fontSize: "clamp(26px, 4vw, 36px)", margin: "12px 0" }}>{state === "success" ? "Email verified" : state === "error" ? "Verification issue" : "Verify your email"}</h1>
@@ -39,6 +42,8 @@ export default function VerifySubmissionPage() {
         {state === "success" && <a href="/get-involved" style={{ display: "inline-block", marginTop: 24, color: "#041968", fontWeight: 700 }}>Return to the website</a>}
         {state === "error" && <a href="/get-involved" style={{ display: "inline-block", marginTop: 24, color: "#041968", fontWeight: 700 }}>Return and submit again</a>}
       </section>
+      </div>
+      <SiteFooter />
     </main>
   );
 }
