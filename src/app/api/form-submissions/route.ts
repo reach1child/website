@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { createHmac } from "node:crypto";
+import { createHash, createHmac, randomBytes } from "node:crypto";
 import { Pool } from "pg";
 import { auth } from "@/lib/auth";
 
@@ -54,8 +54,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Please check the required fields and try again." }, { status: 400 });
     }
 
-    const token = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, "0")).join("");
-    const { createHash } = await import("node:crypto");
+    const token = randomBytes(32).toString("hex");
     const tokenHash = createHash("sha256").update(token).digest("hex");
     const payload = {
       formType, formTitle, name, email,
