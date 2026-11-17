@@ -497,3 +497,34 @@ body p{font-size:16px}
 .donation-divider{height:1px;background:#e9edf4;margin:3px 0}.donation-form>h2{font-size:17px;color:#041968;margin:0}.donation-details-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.donation-note{grid-column:1/-1}.donation-details-grid textarea{resize:vertical;min-height:86px}.donation-consent,.donation-secure-note{font-size:11px;line-height:1.65;color:#78839a;margin:0}.donation-submit{width:100%;justify-content:center;min-height:52px;font-size:14px}.donation-submit:disabled{opacity:.65;cursor:wait}.donation-feedback{padding:13px 14px;border-radius:8px;background:#fff4f3;color:#a32329;font-size:12px;line-height:1.6;margin:0}.donation-feedback.success{background:#edf8f1;color:#23633a}.donate-footer{text-align:center;padding:22px;color:#8a93a7;font-size:11px;border-top:1px solid #e8edf5;background:#fff}
 @media(max-width:820px){.donate-content{margin-top:28px}.donate-form-panel{padding:25px}}
 @media(max-width:520px){.donate-page-header{height:70px;padding:0 18px}.donate-brand img{width:40px;height:40px}.donate-brand strong{font-size:11px}.donate-back{font-size:11px}.donate-hero{padding:46px 22px 40px}.donate-hero p{font-size:14px}.donate-content{width:calc(100% - 32px);margin:22px auto 40px}.donate-form-panel{padding:20px 16px;border-radius:11px}.donation-details-grid{grid-template-columns:1fr}.donation-note{grid-column:auto}.donation-field-heading{align-items:flex-start;flex-direction:column}.donation-amounts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Three-step donation journey */
+.donation-wizard{gap:22px}
+.donation-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:relative;gap:8px;margin:0 0 8px}
+.donation-step{display:flex;align-items:center;gap:9px;position:relative;z-index:1;color:#8992a6}
+.donation-step>span{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;border:1px solid #dce3ef;background:#fff;color:#69748d;font-size:13px;font-weight:800;flex:none}
+.donation-step small{font-size:11px;font-weight:700;white-space:nowrap}
+.donation-step.active{color:#041968}.donation-step.active>span,.donation-step.complete>span{background:#041968;border-color:#041968;color:#fff}
+.donation-step.complete{color:#041968}
+.donation-step-panel{display:flex;flex-direction:column;gap:18px;min-width:0}
+.donation-step-heading .eyebrow{font-size:10px;color:#ee3135;font-weight:800;letter-spacing:.14em}
+.donation-step-heading h2{font-size:26px;color:#041968;margin:5px 0 4px}
+.donation-step-heading p{font-size:13px;line-height:1.65;color:#6c7690;margin:0}
+.donation-summary-line{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 16px;border-radius:9px;background:#f3f5fa;color:#596681;font-size:12px}
+.donation-summary-line strong{color:#041968;font-size:14px;text-align:right}
+.donation-full-width{grid-column:1/-1}
+.donation-optin{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:9px!important;font-size:11px!important;line-height:1.6;font-weight:500!important;color:#596681!important}
+.donation-optin input{margin:2px 0 0;accent-color:#041968;flex:none}
+.donation-step-actions{display:flex;align-items:center;gap:12px}
+.donation-step-actions .donation-submit{flex:1}
+.donation-back-button{min-height:50px;padding:0 22px;border:1px solid #dce3ef;border-radius:8px;background:#fff;color:#041968;font-weight:800;cursor:pointer}
+.donation-summary-card{padding:22px;border:1px solid #e2e8f2;border-radius:10px;display:flex;flex-direction:column;gap:7px}
+.donation-summary-card>span{font-size:12px;color:#65718a}
+.donation-summary-card>strong{font-size:30px;line-height:1.2;color:#041968}
+.donation-summary-card>small{font-size:11px;color:#77829a}
+.donation-payment-placeholder{padding:20px;border:1px solid #dfe6f1;border-radius:10px;background:#f8faff}
+.donation-payment-placeholder strong{font-size:14px;color:#041968}
+.donation-payment-placeholder p{font-size:12px;line-height:1.7;color:#596681;margin:9px 0}
+.donation-payment-placeholder>span{font-size:11px;font-weight:700;color:#a34b24}
+@media(max-width:520px){.donation-steps{gap:4px}.donation-step{flex-direction:column;align-items:flex-start;gap:5px}.donation-step small{font-size:10px}.donation-step>span{width:30px;height:30px}.donation-step-heading h2{font-size:23px}.donation-step-actions{gap:8px}.donation-back-button{padding:0 15px}.donation-summary-line{align-items:flex-start;flex-direction:column;gap:6px}.donation-summary-line strong{text-align:left}}
