@@ -5,8 +5,8 @@ import { createPortal } from "react-dom";
 
 const amounts = [50, 100, 250, 500, 1000];
 
-export default function DonateForm({ triggerClassName = "button button-red donation-open-trigger", triggerLabel = "Donate" }: { triggerClassName?: string; triggerLabel?: string }) {
-  const [isOpen,setIsOpen] = useState(false);
+export default function DonateForm({ triggerClassName = "button button-red donation-open-trigger", triggerLabel = "Donate", openOnMount = false }: { triggerClassName?: string; triggerLabel?: string; openOnMount?: boolean }) {
+  const [isOpen,setIsOpen] = useState(openOnMount);
   const [step,setStep] = useState(1);
   const [frequency,setFrequency] = useState<"once"|"monthly">("once");
   const [currency,setCurrency] = useState<"ZMW"|"USD">("ZMW");
