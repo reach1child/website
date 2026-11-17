@@ -23,8 +23,13 @@ export default function DonateForm({ triggerClassName = "button button-red donat
   const money=currency==="ZMW"?"ZMW":"USD";
 
   function closeModal() {
+    // When the modal is the donate route itself, replace that history entry
+    // immediately so the closed donate page is never briefly rendered.
+    if (openOnMount) {
+      window.location.replace("/");
+      return;
+    }
     setIsOpen(false);
-    if (openOnMount) window.location.assign("/");
   }
 
   function nextStep() {
