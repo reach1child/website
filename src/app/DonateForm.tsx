@@ -44,8 +44,7 @@ export default function DonateForm() {
       })});
       const result=await response.json();
       if(!response.ok) throw new Error(result.error||"We could not submit your donation details. Please try again.");
-      setSent(true);
-      setFeedback("Thank you for choosing to support children through R1CF. Please check your email and verify your address. Your donation intention will reach our team after verification. No payment has been taken.");
+      window.location.assign("/donate/thank-you");
 
     } catch(error) {setFeedback(error instanceof Error?error.message:"We could not submit your details. Please try again.");}
     finally {setSubmitting(false);}
