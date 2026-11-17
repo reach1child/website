@@ -625,3 +625,67 @@ body p{font-size:16px}
   .donation-modal .donation-modal-title-wrap h2{font-size:18px}
   .donation-modal .donation-form{padding-left:12px;padding-right:12px}
 }
+
+
+/* Keep the complete donation journey usable on short screens */
+.donation-modal{
+  max-height:min(92dvh,900px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+.donation-modal .donation-form{min-width:0}
+.donation-modal .donation-step-panel{gap:14px}
+.donation-modal .donation-amounts button{min-height:46px}
+.donation-modal .donation-submit{min-height:48px}
+@media(max-width:760px){
+  .donation-modal{
+    display:flex;
+    flex-direction:column;
+    height:100dvh;
+    max-height:100dvh;
+    overflow:hidden;
+  }
+  .donation-modal .donation-modal-heading{flex:none}
+  .donation-modal .donation-form{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    padding:12px 15px calc(22px + env(safe-area-inset-bottom));
+  }
+  .donation-modal .donation-wizard{gap:12px}
+  .donation-modal .donation-steps{margin-bottom:10px}
+  .donation-modal .donation-step-panel{gap:12px;padding-bottom:4px}
+  .donation-modal .donation-frequency button{min-height:42px}
+  .donation-modal .donation-field-heading{gap:8px}
+  .donation-modal .donation-amounts{gap:8px}
+  .donation-modal .donation-amounts button{min-height:42px;padding:9px 10px}
+  .donation-modal .donation-purpose select,
+  .donation-modal .donation-custom input{min-height:43px}
+  .donation-modal .donation-summary-line{padding:11px 13px}
+  .donation-modal .donation-submit{
+    position:sticky;
+    bottom:0;
+    z-index:2;
+    width:100%;
+    min-height:50px;
+    margin-top:2px;
+    box-shadow:0 5px 18px #ee31353a;
+  }
+  .donation-modal .donation-step-actions{
+    position:sticky;
+    bottom:0;
+    z-index:2;
+    padding:9px 0 calc(4px + env(safe-area-inset-bottom));
+    background:#fff;
+  }
+  .donation-modal .donation-step-actions .donation-submit{position:static;flex:1}
+  .donation-modal .donation-back-button{min-height:48px}
+  .donation-modal .donation-details-grid{gap:10px}
+  .donation-modal .donation-details-grid label{font-size:12px}
+  .donation-modal .donation-details-grid input,
+  .donation-modal .donation-details-grid textarea{min-height:42px;padding:10px 11px;font-size:14px}
+  .donation-modal .donation-details-grid textarea{min-height:74px}
+  .donation-modal .donation-payment-placeholder{padding:14px}
+  .donation-modal .donation-summary-card{padding:16px}
+}
