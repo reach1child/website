@@ -10,7 +10,7 @@ type Submission = {
 };
 type EditableFields = Pick<Submission,"name"|"email"|"phone"|"organisation"|"location"|"interest"|"message">;
 const labels: Record<string,string> = {
-  sponsor: "Child sponsorship", partner: "Partnership", volunteer: "Volunteer", general: "General enquiry"
+  sponsor: "Child sponsorship", partner: "Partnership", volunteer: "Volunteer", general: "General enquiry", donate: "Donation pledge"
 };
 const blankFields: EditableFields = {name:"",email:"",phone:"",organisation:"",location:"",interest:"",message:""};
 
