@@ -22,6 +22,11 @@ export default function DonateForm({ triggerClassName = "button button-red donat
   const formattedAmount=Number.isFinite(value)&&value>0?value.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
   const money=currency==="ZMW"?"ZMW":"USD";
 
+  function closeModal() {
+    setIsOpen(false);
+    if (openOnMount) window.location.assign("/");
+  }
+
   function nextStep() {
     if(step===1) {
       if(!Number.isFinite(value)||value<=0||value>100000000) {setFeedback("Please enter a valid donation amount.");return;}
@@ -56,7 +61,7 @@ export default function DonateForm({ triggerClassName = "button button-red donat
     if (!isOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape" && !submitting) setIsOpen(false); };
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape" && !submitting) closeModal(); };
     window.addEventListener("keydown", closeOnEscape);
     return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", closeOnEscape); };
   }, [isOpen, submitting]);
@@ -64,12 +69,12 @@ export default function DonateForm({ triggerClassName = "button button-red donat
   return <>
     <button className={triggerClassName} type="button" onClick={() => { setStep(1); setFeedback(""); setIsOpen(true); }}>{triggerLabel}</button>
     {isOpen && typeof document !== "undefined" && createPortal(
-      <div className="involved-modal-backdrop donation-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) setIsOpen(false); }}>
+      <div className="involved-modal-backdrop donation-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) closeModal(); }}>
         <section className="involved-modal donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
           <div className="involved-modal-heading donation-modal-heading">
             <img className="donation-modal-logo" src="/images/branding/logo.jpeg" alt="Reach One Child Foundation logo" />
             <div className="donation-modal-title-wrap"><h2 id="donation-modal-title">Give a child the chance to <em>learn, grow and thrive.</em></h2></div>
-            <button className="involved-modal-close" type="button" disabled={submitting} onClick={() => setIsOpen(false)}>Close</button>
+            <button className="involved-modal-close" type="button" disabled={submitting} onClick={closeModal}>Close</button>
           </div>
           <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
     <div className="donation-steps" aria-label="Donation progress">
