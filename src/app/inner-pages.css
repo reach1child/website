@@ -537,3 +537,24 @@
 .admin-workspace-content .cms-notice{border-radius:8px;border:1px solid #e7ebf2;border-left:3px solid #ee3135;box-shadow:0 4px 15px #17233f07}
 @media(max-width:1150px){.admin-workspace-shell{grid-template-columns:220px minmax(0,1fr)}.admin-workspace-topbar{padding:0 22px}.admin-workspace-content>.admin-subpage{padding-left:20px;padding-right:20px}}
 @media(max-width:700px){.admin-workspace-shell{display:block}.admin-workspace-sidebar{height:auto;min-height:0;position:relative;padding:12px 13px 10px}.admin-workspace-brand{height:52px;justify-content:flex-start;padding:0 5px 10px;margin-bottom:10px}.admin-workspace-brand img{width:145px;height:45px;object-position:left center}.admin-workspace-label,.admin-workspace-secure{display:none}.admin-workspace-sidebar nav{display:flex;overflow-x:auto;gap:4px;padding-bottom:2px}.admin-workspace-sidebar nav a{white-space:nowrap;min-height:36px;padding:0 10px;font-size:10px}.admin-workspace-topbar{height:54px;padding:0 15px;font-size:9px}.admin-workspace-topbar>div{display:none}.admin-workspace-content>.admin-subpage{min-height:calc(100vh - 106px);padding:0 12px 38px}.admin-workspace-content .admin-subpage>header{height:54px}.admin-workspace-content .admin-subpage>section{margin:28px auto}.admin-workspace-content .admin-subpage h1{font-size:30px}.admin-workspace-content .forms-inbox-layout{grid-template-columns:1fr}.admin-workspace-content .forms-inbox-filters{grid-template-columns:1fr}.admin-workspace-content .cms-module-grid{grid-template-columns:1fr}}
+
+
+/* Donation journey opens in the same full-screen modal pattern as other enquiries */
+.donate-launch-area{padding:72px 24px 90px;background:#f5f7fb;text-align:center}
+.donate-launch-copy{width:min(680px,100%);margin:0 auto}
+.donate-launch-copy h2{font:800 clamp(30px,4vw,43px)/1.15 Manrope,sans-serif;color:var(--navy);letter-spacing:-.035em;margin:14px 0}
+.donate-launch-copy>p{max-width:560px;margin:0 auto 25px;color:#68738a;font-size:14px;line-height:1.8}
+.donation-open-trigger{min-width:190px;cursor:pointer;border:0}
+.donation-modal{width:min(100%,780px)}
+.donation-modal .donation-form{padding:24px 30px 30px}
+.donation-modal .donation-step-panel{max-width:100%}
+.donation-modal .donation-steps{margin-bottom:25px}
+.donation-modal .donation-details-grid input,.donation-modal .donation-details-grid textarea{width:100%}
+.donation-modal .donation-submit{cursor:pointer}
+.donation-modal .donation-submit:disabled{opacity:.65;cursor:wait}
+@media(max-width:760px){
+ .donate-launch-area{padding:52px 20px 65px}
+ .donation-modal-backdrop{align-items:flex-end;padding:10px}
+ .donation-modal{width:100%;max-height:calc(100vh - 20px);border-radius:10px 10px 6px 6px}
+ .donation-modal .donation-form{padding:18px 16px 24px}
+}
