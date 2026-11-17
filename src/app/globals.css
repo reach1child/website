@@ -711,3 +711,47 @@ body p{font-size:16px}
 @media(max-width:380px){
   .donation-modal .donation-modal-heading{padding:52px 13px 14px;gap:10px}
 }
+
+
+/* Mobile donation header: reserve a real grid row for the close control. */
+@media(max-width:760px){
+  .donation-modal .donation-modal-heading{
+    display:grid;
+    grid-template-columns:56px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    align-items:center;
+    gap:10px 12px;
+    padding:12px 16px 15px;
+  }
+  .donation-modal .donation-modal-heading .involved-modal-close{
+    position:static;
+    grid-column:1 / -1;
+    grid-row:1;
+    justify-self:end;
+    align-self:center;
+    z-index:2;
+    min-height:34px;
+    margin:0;
+    padding:6px 12px;
+  }
+  .donation-modal .donation-modal-logo{
+    grid-column:1;
+    grid-row:2;
+    width:56px;
+    height:56px;
+  }
+  .donation-modal .donation-modal-title-wrap{
+    grid-column:2;
+    grid-row:2;
+    min-width:0;
+  }
+}
+@media(max-width:380px){
+  .donation-modal .donation-modal-heading{
+    grid-template-columns:50px minmax(0,1fr);
+    gap:9px 10px;
+    padding:11px 13px 13px;
+  }
+  .donation-modal .donation-modal-logo{width:50px;height:50px}
+  .donation-modal .donation-modal-title-wrap h2{font-size:18px}
+}
