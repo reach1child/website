@@ -14,6 +14,7 @@ export default function DonateForm() {
   const [submitting,setSubmitting] = useState(false);
   const [feedback,setFeedback] = useState("");
   const [sent,setSent] = useState(false);
+  const [donorDetails,setDonorDetails] = useState({firstName:"",lastName:"",email:"",phone:"",location:"",message:"",emailUpdates:false});
 
   const value=amount==="other"?Number(custom):Number(amount);
   const formattedAmount=Number.isFinite(value)&&value>0?value.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
@@ -30,24 +31,22 @@ export default function DonateForm() {
   async function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if(submitting) return;
-    const formElement=event.currentTarget;
-    const data=new FormData(formElement);
-    const first=String(data.get("firstName")||"").trim();
-    const last=String(data.get("lastName")||"").trim();
-    if(!first||!last||!String(data.get("email")||"").trim()) {setFeedback("Please complete your name and email address.");setStep(2);return;}
+    const first=donorDetails.firstName.trim();
+    const last=donorDetails.lastName.trim();
+    if(!first||!last||!donorDetails.email.trim()) {setFeedback("Please complete your name and email address.");setStep(2);return;}
     setSubmitting(true);setFeedback("");
     const interest=`${currency} ${formattedAmount} | ${frequency==="once"?"One-time":"Monthly"} | ${purpose}`;
     const message="Donation intention only — payment has not yet been made.\nEmail updates: "+(data.get("emailUpdates")?"Opted in":"Not opted in")+(String(data.get("message")||"").trim()?"\n\nDonor note: "+String(data.get("message")).trim():"");
     try {
       const response=await fetch("/api/form-submissions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-        formType:"donate",formTitle:"Donation pledge",name:`${first} ${last}`,email:data.get("email"),phone:data.get("phone"),
-        organisation:"",location:data.get("location"),interest,message
+        formType:"donate",formTitle:"Donation pledge",name:`${first} ${last}`,email:donorDetails.email,phone:donorDetails.phone,
+        organisation:"",location:donorDetails.location,interest,message
       })});
       const result=await response.json();
       if(!response.ok) throw new Error(result.error||"We could not submit your donation details. Please try again.");
       setSent(true);
       setFeedback("Thank you for choosing to support children through R1CF. Please check your email and verify your address. Your donation intention will reach our team after verification. No payment has been taken.");
-      formElement.reset();
+
     } catch(error) {setFeedback(error instanceof Error?error.message:"We could not submit your details. Please try again.");}
     finally {setSubmitting(false);}
   }
@@ -86,7 +85,7 @@ export default function DonateForm() {
       <label className="donation-optin"><input type="checkbox" name="emailUpdates"/> Yes, I would like to receive occasional updates from Reach One Child Foundation by email.</label>
       <p className="donation-consent">Your donation receipt and verification message will be sent to the email address you provide. You can opt out of optional updates at any time.</p>
       {feedback&&!sent&&<p className="donation-feedback" role="alert">{feedback}</p>}
-      <div className="donation-step-actions"><button className="donation-back-button" type="button" onClick={()=>{setFeedback("");setStep(1);}}>Back</button><button className="button button-red donation-submit" type="button" onClick={()=>{const form=document.querySelector<HTMLFormElement>(".donation-wizard");if(!form)return;const first=form.elements.namedItem("firstName") as HTMLInputElement;const last=form.elements.namedItem("lastName") as HTMLInputElement;const email=form.elements.namedItem("email") as HTMLInputElement;if(!first.value.trim()||!last.value.trim()||!email.value.trim()||!email.validity.valid){form.reportValidity();return;}setFeedback("");setStep(3);}}>Continue</button></div>
+      <div className="donation-step-actions"><button className="donation-back-button" type="button" onClick={()=>{setFeedback("");setStep(1);}}>Back</button><button className="button button-red donation-submit" type="button" onClick={()=>{const form=document.querySelector<HTMLFormElement>(".donation-wizard");if(!form)return;const first=form.elements.namedItem("firstName") as HTMLInputElement;const last=form.elements.namedItem("lastName") as HTMLInputElement;const email=form.elements.namedItem("email") as HTMLInputElement;if(!first.value.trim()||!last.value.trim()||!email.value.trim()||!email.validity.valid){form.reportValidity();return;}setDonorDetails({firstName:first.value.trim(),lastName:last.value.trim(),email:email.value.trim(),phone:(form.elements.namedItem("phone") as HTMLInputElement).value.trim(),location:(form.elements.namedItem("location") as HTMLInputElement).value.trim(),message:(form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),emailUpdates:(form.elements.namedItem("emailUpdates") as HTMLInputElement).checked});setFeedback("");setStep(3);}}>Continue</button></div>
     </section>}
 
     {step===3&&<section className="donation-step-panel" aria-labelledby="donation-step-three">
