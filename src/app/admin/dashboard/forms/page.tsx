@@ -90,7 +90,7 @@ export default function FormsInbox() {
       <p className="forms-inbox-lede">All website submissions in one place. Filter by form, search for a person or organisation, and keep track of follow-up.</p>
       <div className="forms-inbox-stats"><div><strong>{counts.total}</strong><span>SHOWING</span></div><div><strong>{counts.fresh}</strong><span>NEW SUBMISSIONS</span></div><button onClick={()=>void load()} type="button">Refresh list</button></div>
       <div className="forms-inbox-filters">
-        <label>Form type<select value={type} onChange={e=>setType(e.target.value)}><option value="all">All forms</option><option value="sponsor">Child sponsorship</option><option value="partner">Partnership</option><option value="volunteer">Volunteer</option><option value="general">General enquiry</option></select></label>
+        <label>Form type<select value={type} onChange={e=>setType(e.target.value)}><option value="all">All forms</option><option value="sponsor">Child sponsorship</option><option value="partner">Partnership</option><option value="volunteer">Volunteer</option><option value="general">General enquiry</option><option value="donate">Donation pledge</option></select></label>
         <label>Follow-up status<select value={status} onChange={e=>setStatus(e.target.value)}><option value="all">All statuses</option><option value="new">New</option><option value="reviewing">Reviewing</option><option value="resolved">Resolved</option></select></label>
         <label className="forms-inbox-search">Search<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Name, email or organisation"/></label>
       </div>
