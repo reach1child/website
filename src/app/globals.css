@@ -794,3 +794,29 @@ body p{font-size:16px}
     font-size:10px;
   }
 }
+
+
+/* Homepage hero image crossfade */
+.hero-photo{
+  background-image:none;
+  overflow:hidden;
+}
+.hero-photo .hero-slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:62% 38%;
+  opacity:0;
+  transition:opacity 1.15s ease-in-out;
+  will-change:opacity;
+}
+.hero-photo .hero-slide.is-active{opacity:1}
+@media(max-width:1000px){
+  .hero-photo .hero-slide{object-position:62% center}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo .hero-slide{transition:none}
+}
