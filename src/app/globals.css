@@ -528,3 +528,14 @@ body p{font-size:16px}
 .donation-payment-placeholder p{font-size:12px;line-height:1.7;color:#596681;margin:9px 0}
 .donation-payment-placeholder>span{font-size:11px;font-weight:700;color:#a34b24}
 @media(max-width:520px){.donation-steps{gap:4px}.donation-step{flex-direction:column;align-items:flex-start;gap:5px}.donation-step small{font-size:10px}.donation-step>span{width:30px;height:30px}.donation-step-heading h2{font-size:23px}.donation-step-actions{gap:8px}.donation-back-button{padding:0 15px}.donation-summary-line{align-items:flex-start;flex-direction:column;gap:6px}.donation-summary-line strong{text-align:left}}
+
+
+/* Donation thank-you page */
+.donate-thankyou-wrap{min-height:62vh;display:grid;place-items:center;padding:64px 22px;background:#f5f7fb}
+.donate-thankyou-card{width:min(650px,100%);padding:clamp(30px,6vw,58px);background:#fff;border:1px solid #e6ebf3;border-radius:14px;box-shadow:0 18px 55px #04196812;text-align:center}
+.donate-thankyou-card>.eyebrow{color:#ee3135;font-size:10px;font-weight:800;letter-spacing:.16em}
+.donate-thankyou-mark{width:58px;height:58px;margin:22px auto 18px;display:grid;place-items:center;border-radius:50%;background:#edf8f1;color:#287648;font-size:30px;font-weight:700}
+.donate-thankyou-card h1{max-width:520px;margin:0 auto 15px;color:#041968;font-size:clamp(27px,4vw,39px);line-height:1.15;letter-spacing:-.035em}
+.donate-thankyou-card p{max-width:510px;margin:0 auto 27px;color:#66728a;font-size:15px;line-height:1.8}
+.donate-thankyou-card .button{display:inline-flex;justify-content:center;min-height:48px;align-items:center;padding:0 24px;text-decoration:none}
+@media(max-width:600px){.donate-thankyou-wrap{min-height:58vh;padding:36px 17px}.donate-thankyou-card{padding:30px 22px}.donate-thankyou-card p{font-size:13px}}
