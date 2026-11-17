@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 const amounts = [50, 100, 250, 500, 1000];
 
-export default function DonateForm() {
+export default function DonateForm({ triggerClassName = "button button-red donation-open-trigger", triggerLabel = "Donate" }: { triggerClassName?: string; triggerLabel?: string }) {
   const [isOpen,setIsOpen] = useState(false);
   const [step,setStep] = useState(1);
   const [frequency,setFrequency] = useState<"once"|"monthly">("once");
@@ -62,12 +62,12 @@ export default function DonateForm() {
   }, [isOpen, submitting]);
 
   return <>
-    <button className="button button-red donation-open-trigger" type="button" onClick={() => { setStep(1); setFeedback(""); setIsOpen(true); }}>Donate</button>
+    <button className={triggerClassName} type="button" onClick={() => { setStep(1); setFeedback(""); setIsOpen(true); }}>{triggerLabel}</button>
     {isOpen && typeof document !== "undefined" && createPortal(
       <div className="involved-modal-backdrop donation-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) setIsOpen(false); }}>
         <section className="involved-modal donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
           <div className="involved-modal-heading">
-            <div><span className="eyebrow">SUPPORT R1CF</span><h2 id="donation-modal-title">Make your donation</h2><p>Choose an amount that feels right for you. Your support helps children across Zambia.</p></div>
+            <div><h2 id="donation-modal-title">Give a child the chance to <em>learn, grow and thrive.</em></h2></div>
             <button className="involved-modal-close" type="button" disabled={submitting} onClick={() => setIsOpen(false)}>Close</button>
           </div>
           <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
@@ -76,7 +76,7 @@ export default function DonateForm() {
     </div>
 
     {step===1&&<section className="donation-step-panel" aria-labelledby="donation-step-one">
-      <div className="donation-step-heading"><span className="eyebrow">STEP 1 OF 3</span><h2 id="donation-step-one">Choose your gift</h2><p>Your contribution helps children across Zambia access education, care and opportunity.</p></div>
+      
       <div className="donation-frequency" role="group" aria-label="Donation frequency">
         <button type="button" className={frequency==="monthly"?"active":""} onClick={()=>setFrequency("monthly")}>Monthly</button>
         <button type="button" className={frequency==="once"?"active":""} onClick={()=>setFrequency("once")}>Give once</button>
