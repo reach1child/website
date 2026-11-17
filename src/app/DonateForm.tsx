@@ -36,7 +36,7 @@ export default function DonateForm() {
     if(!first||!last||!donorDetails.email.trim()) {setFeedback("Please complete your name and email address.");setStep(2);return;}
     setSubmitting(true);setFeedback("");
     const interest=`${currency} ${formattedAmount} | ${frequency==="once"?"One-time":"Monthly"} | ${purpose}`;
-    const message="Donation intention only — payment has not yet been made.\nEmail updates: "+(data.get("emailUpdates")?"Opted in":"Not opted in")+(String(data.get("message")||"").trim()?"\n\nDonor note: "+String(data.get("message")).trim():"");
+    const message="Donation intention only — payment has not yet been made.\nEmail updates: "+(donorDetails.emailUpdates?"Opted in":"Not opted in")+(donorDetails.message.trim()?"\n\nDonor note: "+donorDetails.message.trim():"");
     try {
       const response=await fetch("/api/form-submissions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
         formType:"donate",formTitle:"Donation pledge",name:`${first} ${last}`,email:donorDetails.email,phone:donorDetails.phone,
