@@ -32,7 +32,7 @@ export default function GetInvolvedForms() {
       });
       const result = await response.json();
       if(!response.ok) throw new Error(result.error||"We could not submit your form. Please try again.");
-      setFeedback("Thank you. Your submission has been received by Reach One Child Foundation.");
+      setFeedback("We have sent a verification email to your address. Please open it and click “Verify my email”. Your enquiry will only be delivered to the R1CF team after you verify. The link expires in 24 hours.");
       form.reset();
     } catch(error) {
       setFeedback(error instanceof Error?error.message:"Submission failed. Please try again.");
@@ -96,7 +96,7 @@ export default function GetInvolvedForms() {
               </div>
               {feedback&&<p className="involved-form-feedback" role="status">{feedback}</p>}
               <button className="button button-red" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit"}</button>
-              <p className="involved-form-note">Your submission will be securely recorded for the R1CF team to review.</p>
+              <p className="involved-form-note">You will receive an email verification link. Your enquiry is sent to our team only after you verify your email address.</p>
             </form>
           </section>
         </div>,
