@@ -126,14 +126,49 @@ export async function PATCH(request: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
   const body = await request.json();
   const id = clean(body.id, 64);
-  const status = clean(body.status, 20);
-  if (!/^[0-9a-f-]{36}$/i.test(id) || !["new", "reviewing", "resolved"].includes(status)) return NextResponse.json({ error: "Invalid submission update." }, { status: 400 });
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
   try {
-    const result = await getFormsPool().query("UPDATE app_private.form_submissions SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING id", [status, id]);
+    const pool = getFormsPool();
+    if (body.fields && typeof body.fields === "object") {
+      const fields = body.fields as Record<string, unknown>;
+      const name = clean(fields.name, 160);
+      const email = clean(fields.email, 254).toLowerCase();
+      if (!name || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+        return NextResponse.json({ error: "Please provide a valid name and email address." }, { status: 400 });
+      }
+      const result = await pool.query(
+        `UPDATE app_private.form_submissions
+         SET name=$1, email=$2, phone=$3, organisation=$4, location=$5, interest=$6, message=$7, updated_at=NOW()
+         WHERE id=$8 RETURNING id`,
+        [name, email, clean(fields.phone,80)||null, clean(fields.organisation,180)||null,
+         clean(fields.location,180)||null, clean(fields.interest,240)||null, clean(fields.message,5000)||null, id]
+      );
+      if (!result.rowCount) return NextResponse.json({ error: "Submission not found." }, { status: 404 });
+      return NextResponse.json({ ok: true });
+    }
+    const status = clean(body.status, 20);
+    if (!["new", "reviewing", "resolved"].includes(status)) return NextResponse.json({ error: "Invalid submission update." }, { status: 400 });
+    const result = await pool.query("UPDATE app_private.form_submissions SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING id", [status, id]);
     if (!result.rowCount) return NextResponse.json({ error: "Submission not found." }, { status: 404 });
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Unable to update form submission", error);
     return NextResponse.json({ error: "The submission could not be updated." }, { status: 503 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  const session = await requireAdmin();
+  if (!session) return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  try {
+    const { id } = await request.json();
+    const submissionId = clean(id, 64);
+    if (!/^[0-9a-f-]{36}$/i.test(submissionId)) return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
+    const result = await getFormsPool().query("DELETE FROM app_private.form_submissions WHERE id=$1 RETURNING id", [submissionId]);
+    if (!result.rowCount) return NextResponse.json({ error: "Submission not found." }, { status: 404 });
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    console.error("Unable to delete form submission", error);
+    return NextResponse.json({ error: "The submission could not be deleted." }, { status: 503 });
   }
 }
