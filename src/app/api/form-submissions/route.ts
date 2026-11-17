@@ -7,7 +7,7 @@ import { auth } from "@/lib/auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const formTypes = new Set(["sponsor", "partner", "volunteer", "general"]);
+const formTypes = new Set(["sponsor", "partner", "volunteer", "general", "donate"]);
 const clean = (value: unknown, max = 2000) => typeof value === "string" ? value.trim().slice(0, max) : "";
 
 let formsPool: Pool | null = null;
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     const formTitle = clean(body.formTitle, 120);
     const name = clean(body.name, 160);
     const email = clean(body.email, 254).toLowerCase();
-    if (!formTypes.has(formType) || !formTitle || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!formTypes.has(formType) || !formTitle || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || (formType === "donate" && !clean(body.interest, 240))) {
       return NextResponse.json({ error: "Please check the required fields and try again." }, { status: 400 });
     }
 
