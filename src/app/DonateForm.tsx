@@ -20,7 +20,8 @@ export default function DonateForm() {
     const value=amount==="other"?Number(custom):Number(amount);
     if(!Number.isFinite(value)||value<=0||value>100000000) {setFeedback("Please enter a valid donation amount.");return;}
     setSubmitting(true);setFeedback("");
-    const data=new FormData(event.currentTarget);
+    const formElement=event.currentTarget;
+    const data=new FormData(formElement);
     const interest=`${currency} ${value.toLocaleString("en-US")} | ${frequency==="once"?"One-time":"Monthly"} | ${purpose}`;
     const message="Donation intention (payment not yet made)."+(String(data.get("message")||"").trim()?"\n\nDonor note: "+String(data.get("message")).trim():"");
     try {
@@ -32,7 +33,7 @@ export default function DonateForm() {
       if(!response.ok) throw new Error(result.error||"We could not submit your donation details. Please try again.");
       setSent(true);
       setFeedback("Thank you for choosing to support children through R1CF. Please check your email and verify your address. Your donation intention will reach our team after verification. No payment has been taken.");
-      (event.currentTarget as HTMLFormElement).reset();
+      formElement.reset();
     } catch(error) {setFeedback(error instanceof Error?error.message:"We could not submit your details. Please try again.");}
     finally {setSubmitting(false);}
   }
