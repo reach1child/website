@@ -37,7 +37,7 @@ export default function DonateForm() {
     if(!first||!last||!String(data.get("email")||"").trim()) {setFeedback("Please complete your name and email address.");setStep(2);return;}
     setSubmitting(true);setFeedback("");
     const interest=`${currency} ${formattedAmount} | ${frequency==="once"?"One-time":"Monthly"} | ${purpose}`;
-    const message="Donation intention only — payment has not yet been made."+(String(data.get("message")||"").trim()?"\n\nDonor note: "+String(data.get("message")).trim():"");
+    const message="Donation intention only — payment has not yet been made.\nEmail updates: "+(data.get("emailUpdates")?"Opted in":"Not opted in")+(String(data.get("message")||"").trim()?"\n\nDonor note: "+String(data.get("message")).trim():"");
     try {
       const response=await fetch("/api/form-submissions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
         formType:"donate",formTitle:"Donation pledge",name:`${first} ${last}`,email:data.get("email"),phone:data.get("phone"),
@@ -64,7 +64,7 @@ export default function DonateForm() {
         <button type="button" className={frequency==="once"?"active":""} onClick={()=>setFrequency("once")}>Give once</button>
       </div>
       <div className="donation-field-heading"><span>Donation amounts</span><label>Currency<select value={currency} onChange={e=>setCurrency(e.target.value as "ZMW"|"USD")}><option value="ZMW">ZMW · Zambian Kwacha</option><option value="USD">USD · US Dollar</option></select></label></div>
-      <div className="donation-amounts">{(frequency==="monthly"?[100,200,400,600,1000]:[100,250,500,1000,2000]).map(v=><button type="button" key={v} className={amount===String(v)?"active":""} onClick={()=>{setAmount(String(v));setCustom("");}}>{currency==="ZMW"?"K":"$"}{v.toLocaleString("en-US")}</button>)}<button type="button" className={amount==="other"?"active":""} onClick={()=>setAmount("other")}>Other</button></div>
+      <div className="donation-amounts">{(frequency==="monthly"?[320,400,910]:[360,730,1500]).map(v=><button type="button" key={v} className={amount===String(v)?"active":""} onClick={()=>{setAmount(String(v));setCustom("");}}>{currency==="ZMW"?"K":"$"}{v.toLocaleString("en-US")}</button>)}<button type="button" className={amount==="other"?"active":""} onClick={()=>setAmount("other")}>Other</button></div>
       {amount==="other"&&<label className="donation-custom">Enter amount ({currency})<input type="number" min="1" step="0.01" value={custom} onChange={e=>setCustom(e.target.value)} placeholder="Enter your amount" required/></label>}
       <label className="donation-purpose">I would like my gift to support<select value={purpose} onChange={e=>setPurpose(e.target.value)}><option>Where it is needed most</option><option>Education and child sponsorship</option><option>Literacy and learning</option><option>Menstrual health and dignity</option><option>Nutrition and wellbeing</option></select></label>
       <div className="donation-summary-line"><span>Your selected gift</span><strong>{money} {formattedAmount} · {frequency==="once"?"One-time":"Monthly"}</strong></div>
