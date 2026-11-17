@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
+import DonateForm from "./DonateForm";
 
 function Brand() {
   return <a className="brand" href="/" aria-label="Reach One Child Foundation home"><img src="/images/branding/logo.jpeg" alt="Reach One Child Foundation logo" /><span><strong>REACH ONE CHILD</strong><small>FOUNDATION</small></span></a>;
 }
 
 export function SiteHeader() {
-  return <header className="site-header"><div className="container nav-wrap"><Brand/><details className="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="/">Home</a><a href="/about">About us</a><a href="/programmes">Programmes</a><a href="/impact">Our impact</a><a href="/stories">Stories</a><a href="/news">News</a><a href="/get-involved">Get involved</a><a href="/contact">Contact</a><a className="nav-donate" href="/donate">Donate</a></nav></details><nav className="desktop-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/about">About us</a><a href="/programmes">Programmes</a><a href="/impact">Our impact</a><a href="/stories">Stories</a><a href="/news">News</a><a href="/get-involved">Get involved</a><a href="/contact">Contact</a></nav><a className="button button-red header-cta" href="/donate">Donate</a></div></header>;
+  return <header className="site-header"><div className="container nav-wrap"><Brand/><details className="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="/">Home</a><a href="/about">About us</a><a href="/programmes">Programmes</a><a href="/impact">Our impact</a><a href="/stories">Stories</a><a href="/news">News</a><a href="/get-involved">Get involved</a><a href="/contact">Contact</a><DonateForm triggerClassName="nav-donate" triggerLabel="Donate"/></nav></details><nav className="desktop-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/about">About us</a><a href="/programmes">Programmes</a><a href="/impact">Our impact</a><a href="/stories">Stories</a><a href="/news">News</a><a href="/get-involved">Get involved</a><a href="/contact">Contact</a></nav><DonateForm triggerClassName="button button-red header-cta" triggerLabel="Donate"/></div></header>;
 }
 
 export function SiteFooter() {
