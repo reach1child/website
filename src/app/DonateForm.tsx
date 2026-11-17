@@ -66,8 +66,9 @@ export default function DonateForm({ triggerClassName = "button button-red donat
     {isOpen && typeof document !== "undefined" && createPortal(
       <div className="involved-modal-backdrop donation-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !submitting) setIsOpen(false); }}>
         <section className="involved-modal donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
-          <div className="involved-modal-heading">
-            <div><h2 id="donation-modal-title">Give a child the chance to <em>learn, grow and thrive.</em></h2></div>
+          <div className="involved-modal-heading donation-modal-heading">
+            <img className="donation-modal-logo" src="/images/branding/logo.jpeg" alt="Reach One Child Foundation logo" />
+            <div className="donation-modal-title-wrap"><h2 id="donation-modal-title">Give a child the chance to <em>learn, grow and thrive.</em></h2></div>
             <button className="involved-modal-close" type="button" disabled={submitting} onClick={() => setIsOpen(false)}>Close</button>
           </div>
           <form className="donation-form donation-wizard" noValidate onSubmit={submit}>
