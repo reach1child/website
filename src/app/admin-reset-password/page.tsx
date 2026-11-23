@@ -1,13 +1,13 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 export default function AdminResetPasswordPage() {
   const router=useRouter();
-  const params=useSearchParams();
-  const token=params.get("token")||"";
+  const [token,setToken]=useState("");
+  useEffect(()=>{setToken(new URLSearchParams(window.location.search).get("token")||"");},[]);
   const [password,setPassword]=useState("");
   const [confirm,setConfirm]=useState("");
   const [error,setError]=useState("");
