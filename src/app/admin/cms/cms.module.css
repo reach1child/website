@@ -197,3 +197,22 @@
   }
   .panel{border-radius:10px}
 }
+
+
+/* Give the CMS navigation and workspace the wider separation seen on the dashboard */
+.shell{
+  gap:32px;
+}
+.panel{
+  padding:28px;
+}
+@media(max-width:1150px){
+  .shell{gap:24px}
+}
+@media(max-width:760px){
+  .shell{gap:14px}
+  .panel{padding:18px 14px}
+}
+@media(max-width:420px){
+  .panel{padding:15px 11px}
+}
