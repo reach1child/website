@@ -13,62 +13,54 @@ function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
 
-export default function ImpactCounters({ values }: { values?: string[] }) {\n  const configuredFigures = figures.map((figure,index) => ({ ...figure, value: Number.parseInt(values?.[index] || String(figure.value),10) || figure.value }));
+export default function ImpactCounters({ customValues }: { customValues?: string[] }) {
+  const configuredFigures = figures.map((figure,index) => ({
+    ...figure,
+    value: Number.parseInt(customValues?.[index] || String(figure.value),10) || figure.value
+  }));
   const [started, setStarted] = useState(false);
-  const [values, setValues] = useState(configuredFigures.map(() => 0));
+  const [animatedValues, setAnimatedValues] = useState(configuredFigures.map(() => 0));
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = sectionRef.current;
     if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setStarted(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     if (!started) return;
-
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
-      setValues(configuredFigures.map((figure) => figure.value));
+      setAnimatedValues(configuredFigures.map((figure) => figure.value));
       return;
     }
-
     const duration = 1800;
     let animationId = 0;
     const startTime = performance.now();
-
     const animate = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setValues(configuredFigures.map((figure) => Math.round(figure.value * eased)));
-
-      if (progress < 1) {
-        animationId = requestAnimationFrame(animate);
-      }
+      setAnimatedValues(configuredFigures.map((figure) => Math.round(figure.value * eased)));
+      if (progress < 1) animationId = requestAnimationFrame(animate);
     };
-
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [started]);
+  }, [started, customValues]);
 
   return (
     <div className="container impact-grid" ref={sectionRef}>
       {configuredFigures.map((figure, index) => (
         <div className="impact-item" key={figure.label}>
           <strong aria-label={`${formatNumber(figure.value)}${figure.suffix}`}>
-            {formatNumber(values[index])}{figure.suffix}
+            {formatNumber(animatedValues[index])}{figure.suffix}
           </strong>
           <span>{figure.label}</span>
         </div>
