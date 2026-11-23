@@ -11,10 +11,11 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
     const result = await dbPool.query("SELECT mime_type,data,filename FROM public.cms_media WHERE id=$1", [id]);
     if (!result.rowCount) return new Response("Not found", { status: 404 });
     const item = result.rows[0];
-    return new NextResponse(item.data, {
+    const bytes = new Uint8Array(item.data);
+    return new NextResponse(bytes, {
       headers: {
         "Content-Type": item.mime_type,
-        "Content-Length": String(item.data.length),
+        "Content-Length": String(bytes.byteLength),
         "Content-Disposition": "inline; filename*=UTF-8''" + encodeURIComponent(item.filename),
         "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
         "X-Content-Type-Options": "nosniff",
