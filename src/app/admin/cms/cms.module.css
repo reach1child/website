@@ -4,7 +4,7 @@
 /* R1CF dashboard-aligned CMS visual system */
 .workspace{
   max-width:1600px;
-  padding:0 0 24px;
+  padding:32px 40px 32px;
   color:#17264a;
   font-family:'DM Sans',Arial,sans-serif;
 }
@@ -143,7 +143,7 @@
 .mediaCard:hover{border-color:#aab8df}
 .error,.notice{border-radius:8px;font-size:11px}
 @media(max-width:1150px){
-  .workspace{padding:0}
+  .workspace{padding:24px 28px 28px}
   .shell{grid-template-columns:190px minmax(0,1fr)}
 }
 @media(max-width:760px){
@@ -215,4 +215,11 @@
 }
 @media(max-width:420px){
   .panel{padding:15px 11px}
+}
+
+@media(max-width:760px){
+  .workspace{padding:18px 16px 24px}
+}
+@media(max-width:420px){
+  .workspace{padding:14px 12px 20px}
 }
