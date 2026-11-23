@@ -119,7 +119,7 @@ export default function CMSClient() {
     if (!editing) return;
     setSaving(true); setError(""); setNotice("");
     try {
-      const payload = { ...editing, status:nextStatus, content:editing.content || [] };
+      const payload = { ...editing, contentType:editing.content_type, featuredMediaId:editing.featured_media_id, scheduledAt:editing.scheduled_at, status:nextStatus, content:editing.content || [] };
       const response = await fetch("/api/admin/cms",{
         method:activeEntryId ? "PATCH" : "POST",
         headers:{"Content-Type":"application/json"},
