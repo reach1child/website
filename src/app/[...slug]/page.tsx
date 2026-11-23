@@ -7,6 +7,8 @@ import GetInvolvedForms from "../GetInvolvedForms";
 import { dbPool } from "@/lib/auth";
 import { publishDueCmsEntries } from "@/lib/cms";
 
+export const dynamic = "force-dynamic";
+
 const programmeItems = [
   { slug:"jack-lumpa-education-fund", title:"Jack Lumpa Education Fund", short:"Education sponsorship", image:"/images/programmes/Programmes%20(1).jpg", intro:"Helping vulnerable and orphaned children overcome financial barriers to education and remain in school with dignity.", detail:"The Jack Lumpa Education Fund provides sponsorship support for school fees, uniforms, stationery, learning materials and essential home necessities. By easing the everyday costs of education, the fund helps children stay enrolled, participate fully and work towards their potential.", focus:["School fees and education-related costs","School uniforms, stationery and learning materials","Essential home support that helps children attend school","Sustained encouragement and mentorship"] },
   { slug:"1friend1box", title:"#1Friend1Box Campaign", short:"Menstrual health", image:"/images/programmes/Programmes%20(2).jpg", intro:"Working to end period poverty so that girls can attend school, participate with confidence and make informed choices about their health.", detail:"A lack of menstrual products and information can interrupt girls’ education and wellbeing. Through the #1Friend1Box Campaign, R1CF combines menstrual health education with the distribution of sanitary products, helping girls and women manage menstruation with dignity.", focus:["Menstrual health education and awareness","Distribution of sanitary products","Community outreach with girls and women","Promoting dignity, confidence and school attendance"] },
