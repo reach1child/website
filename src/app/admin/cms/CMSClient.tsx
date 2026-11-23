@@ -150,7 +150,8 @@ export default function CMSClient() {
     if(target<0||target>=blocks.length)return;
     [blocks[index],blocks[target]]=[blocks[target],blocks[index]];setEditing(v=>({...v,content:blocks}));
   }
-  function removeBlock(index:number) { setEditing(v=>({...v,content:(v?.content||[]).filter((_,i)=>i!==index)})); }\n  function dropBlock(target:number) { if(draggingBlock===null||draggingBlock===target)return;const blocks=[...(editing?.content||[])];const [item]=blocks.splice(draggingBlock,1);blocks.splice(target,0,item);setEditing(v=>({...v,content:blocks}));setDraggingBlock(null); }
+  function removeBlock(index:number) { setEditing(v=>({...v,content:(v?.content||[]).filter((_,i)=>i!==index)})); }
+  function dropBlock(target:number) { if(draggingBlock===null||draggingBlock===target)return;const blocks=[...(editing?.content||[])];const [item]=blocks.splice(draggingBlock,1);blocks.splice(target,0,item);setEditing(v=>({...v,content:blocks}));setDraggingBlock(null); }
   function addBlock(type:Block["type"]) { setEditing(v=>({...v,content:[...(v?.content||[]),newBlock(type)]})); }
 
   async function uploadFiles(files:FileList|null) {
