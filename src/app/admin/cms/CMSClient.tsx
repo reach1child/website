@@ -169,6 +169,13 @@ export default function CMSClient() {
     finally{setUploading(false);}
   }
 
+  function useSiteAsset(asset:{name:string;url:string},featured:boolean) {
+    if(!editing){setNotice("Open a page or content item first to insert an image.");return;}
+    const block={...newBlock("image"),url:asset.url,alt:asset.name,isFeatured:featured};
+    setEditing(v=>({...v,featured_media_id:featured?null:v?.featured_media_id,content:featured?[block,...(v?.content||[])]:[...(v?.content||[]),block]}));
+    setSection(editing.content_type||"page");setMediaTarget(null);setNotice(asset.name+" added to the editor.");
+  }
+
   async function updateMedia() {
     if(!selectedMedia)return;
     const response=await fetch("/api/admin/cms/media",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(selectedMedia)});
