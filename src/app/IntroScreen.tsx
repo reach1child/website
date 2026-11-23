@@ -36,7 +36,7 @@ export default function IntroScreen() {
         <p>For Every Child, Education.</p>
         <span className="intro-pulse-line" aria-hidden="true"><i /></span>
       </div>
-      <button className="intro-skip" type="button" onClick={() => { setExiting(true); window.setTimeout(() => setVisible(false), 500); }}>Skip intro <span aria-hidden="true">→</span></button>
+      <button className="intro-skip" type="button" onClick={() => { setExiting(true); window.setTimeout(() => setVisible(false), 500); }}>Skip intro</button>
     </div>
   );
 }
