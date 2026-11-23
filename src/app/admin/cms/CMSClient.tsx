@@ -244,7 +244,7 @@ export default function CMSClient() {
           </>}
 
           {currentType&&editing&&<div className={styles.editor}>
-            <div className={styles.editorTop}><button className={styles.textButton} onClick={()=>{setEditing(null);setActiveEntryId("");setRevisions([]);}}>← Back to {pageTitle.toLowerCase()}</button><span>{activeEntryId?"Editing existing content":"New "+labels[currentType].toLowerCase()}</span><button className={styles.secondary} onClick={()=>window.open("/admin/cms/preview?id="+activeEntryId,"_blank","noopener,noreferrer")} disabled={!activeEntryId}>Preview</button></div>
+            <div className={styles.editorTop}><button className={styles.textButton} onClick={()=>{setEditing(null);setActiveEntryId("");setRevisions([]);}}>Back to {pageTitle.toLowerCase()}</button><span>{activeEntryId?"Editing existing content":"New "+labels[currentType].toLowerCase()}</span><button className={styles.secondary} onClick={()=>window.open("/admin/cms/preview?id="+activeEntryId,"_blank","noopener,noreferrer")} disabled={!activeEntryId}>Preview</button></div>
             <div className={styles.editorGrid}>
               <div className={styles.canvas}>
                 <label className={styles.field}>Title<input value={editing.title||""} onChange={e=>setEditing(v=>({...v,title:e.target.value}))} placeholder="Enter a clear title"/></label>
