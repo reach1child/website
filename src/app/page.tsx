@@ -1,6 +1,7 @@
 import ImpactCounters from "./ImpactCounters";
 import { newsItems } from "./news-data";
 import { dbPool } from "@/lib/auth";
+import { publishDueCmsEntries } from "@/lib/cms";
 
 const programmes = [
   { number: "01", title: "Jack Lumpa Education Fund", tag: "Education sponsorship", image: "/images/programmes/Programmes%20(1).jpg", description: "Helping vulnerable and orphaned children stay in school through support for fees, uniforms, stationery and essential learning needs." },
@@ -17,6 +18,7 @@ export default async function Home() {
   let latestNews: {slug:string;title:string;excerpt:string;date:string;place:string;category:string;image:string}[] = newsItems.slice(0,3);
   let homeEntry: {title:string;excerpt:string;content:{id?:string;type:string;text?:string;url?:string;alt?:string;caption?:string;level?:number}[];featured_media_id:string|null}|null = null;
   try {
+    await publishDueCmsEntries();
     const [settings, navigation, posts, home] = await Promise.all([
       dbPool.query("SELECT setting_key,setting_value FROM public.cms_settings WHERE setting_key='foundationAddress'"),
       dbPool.query("SELECT label,href FROM public.cms_navigation WHERE is_visible=true ORDER BY sort_order,id"),
