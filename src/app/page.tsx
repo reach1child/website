@@ -14,7 +14,7 @@ function Brand() { return <a className="brand" href="#home" aria-label="Reach On
 export default async function Home() {
   let address = "3536 Mainstreet Ibex Hill, Lusaka, Zambia";
   let navItems = [{label:"Home",href:"/"},{label:"About us",href:"/about"},{label:"Programmes",href:"/programmes"},{label:"Our impact",href:"/impact"},{label:"Stories",href:"/stories"},{label:"News",href:"/news"},{label:"Get involved",href:"/get-involved"},{label:"Contact",href:"/contact"}];
-  let latestNews = newsItems.slice(0,3);
+  let latestNews: {slug:string;title:string;excerpt:string;date:string;place:string;category:string;image:string}[] = newsItems.slice(0,3);
   let homeEntry: {title:string;excerpt:string;content:{id?:string;type:string;text?:string;url?:string;alt?:string;caption?:string;level?:number}[];featured_media_id:string|null}|null = null;
   try {
     const [settings, navigation, posts, home] = await Promise.all([
