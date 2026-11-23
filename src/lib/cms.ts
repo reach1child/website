@@ -36,3 +36,31 @@ export function slugify(value: string): string {
 export async function publishDueCmsEntries(): Promise<void> {
   await dbPool.query("UPDATE public.cms_entries SET status='published', published_at=COALESCE(scheduled_at,now()), updated_at=now() WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at <= now()");
 }
+
+const cmsBlockTypes = new Set(["heading","paragraph","image","quote","button","divider","list"]);
+function safeCmsUrl(value: unknown): string {
+  const url = cleanCmsText(value, 1200);
+  if (!url) return "";
+  if (url.startsWith("/") && !url.startsWith("//")) return url;
+  if (/^https:\/\//i.test(url) || /^(mailto|tel):/i.test(url)) return url;
+  return "";
+}
+export function cleanCmsBlocks(value: unknown): Array<Record<string, unknown>> {
+  if (!Array.isArray(value)) return [];
+  return value.slice(0, 100).flatMap((raw, index) => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return [];
+    const block = raw as Record<string, unknown>;
+    const type = cleanCmsText(block.type, 20);
+    if (!cmsBlockTypes.has(type)) return [];
+    const result: Record<string, unknown> = { id: cleanCmsText(block.id, 80) || "block-" + index, type };
+    if (typeof block.text === "string") result.text = cleanCmsText(block.text, 12000);
+    if (type === "image" || type === "button") result.url = safeCmsUrl(block.url);
+    if (type === "image") {
+      result.alt = cleanCmsText(block.alt, 240);
+      result.caption = cleanCmsText(block.caption, 500);
+      if (block.isFeatured === true) result.isFeatured = true;
+    }
+    if (type === "heading") result.level = [2,3,4].includes(Number(block.level)) ? Number(block.level) : 2;
+    return [result];
+  });
+}
