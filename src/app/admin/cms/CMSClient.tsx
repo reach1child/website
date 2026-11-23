@@ -42,12 +42,13 @@ export default function CMSClient() {
   const [uploading,setUploading] = useState(false);
   const [uploadFolder,setUploadFolder] = useState("Programmes");
   const [selectedMedia,setSelectedMedia] = useState<Media | null>(null);
-  const [newFolder,setNewFolder] = useState("");
   const [navItems,setNavItems] = useState<{id:string;label:string;href:string;is_visible:boolean;sort_order:number}[]>([]);
   const [settings,setSettings] = useState({foundationAddress:"3536 Mainstreet Ibex Hill, Lusaka, Zambia", contactEmail:"", contactPhone:"", seoTitle:"Reach One Child Foundation", seoDescription:"For Every Child, Education."});
   const [team,setTeam] = useState<{email:string;display_name:string;access_role:string;is_active:boolean}[]>([]);
   const [invite,setInvite] = useState({name:"",email:"",role:"editor"});
   const [activeEntryId,setActiveEntryId] = useState("");
+  const [role,setRole] = useState("administrator");
+  const [draggingBlock,setDraggingBlock] = useState<number|null>(null);
   const [mediaTarget,setMediaTarget] = useState<{kind:"featured"}|{kind:"block";index:number}|null>(null);
   const [revisions,setRevisions] = useState<{id:string;revision_note:string;created_by:string;created_at:string}[]>([]);
 
@@ -148,7 +149,7 @@ export default function CMSClient() {
     if(target<0||target>=blocks.length)return;
     [blocks[index],blocks[target]]=[blocks[target],blocks[index]];setEditing(v=>({...v,content:blocks}));
   }
-  function removeBlock(index:number) { setEditing(v=>({...v,content:(v?.content||[]).filter((_,i)=>i!==index)})); }
+  function removeBlock(index:number) { setEditing(v=>({...v,content:(v?.content||[]).filter((_,i)=>i!==index)})); }\n  function dropBlock(target:number) { if(draggingBlock===null||draggingBlock===target)return;const blocks=[...(editing?.content||[])];const [item]=blocks.splice(draggingBlock,1);blocks.splice(target,0,item);setEditing(v=>({...v,content:blocks}));setDraggingBlock(null); }
   function addBlock(type:Block["type"]) { setEditing(v=>({...v,content:[...(v?.content||[]),newBlock(type)]})); }
 
   async function uploadFiles(files:FileList|null) {
@@ -210,7 +211,7 @@ export default function CMSClient() {
           <span className={styles.navCaption}>CONTENT</span>
           {sections.slice(0,5).map(item=><button key={item.id} className={section===item.id?styles.active:""} onClick={()=>{setSection(item.id);setEditing(null);setError("");setNotice("");}}>{item.label}</button>)}
           <span className={styles.navCaption}>LIBRARY & SETTINGS</span>
-          {sections.slice(5).map(item=><button key={item.id} className={section===item.id?styles.active:""} onClick={()=>{setSection(item.id);setEditing(null);setError("");setNotice("");}}>{item.label}</button>)}
+          {sections.slice(5).filter(item=>role==="administrator"||item.id==="media").map(item=><button key={item.id} className={section===item.id?styles.active:""} onClick={()=>{setSection(item.id);setEditing(null);setError("");setNotice("");}}>{item.label}</button>)}
         </nav>
         <section className={styles.panel}>
           <div className={styles.panelHead}>
@@ -241,7 +242,7 @@ export default function CMSClient() {
                 <label className={styles.field}>URL slug<div className={styles.slug}><span>reachonechildfoundation.org/</span><input value={editing.slug||""} onChange={e=>setEditing(v=>({...v,slug:e.target.value}))} placeholder="page-url"/></div></label>
                 <label className={styles.field}>Short description<textarea rows={2} value={editing.excerpt||""} onChange={e=>setEditing(v=>({...v,excerpt:e.target.value}))} placeholder="A short introduction for visitors and search results"/></label>
                 <div className={styles.blocksHead}><div><h3>Page content</h3><p>Add and arrange content blocks, just like WordPress.</p></div><span>BLOCK EDITOR</span></div>
-                {(editing.content||[]).map((block,index)=><article className={styles.block} key={block.id}>
+                {(editing.content||[]).map((block,index)=><article className={styles.block} key={block.id} draggable onDragStart={()=>setDraggingBlock(index)} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();dropBlock(index);}} onDragEnd={()=>setDraggingBlock(null)}>
                   <div className={styles.blockBar}><strong>{block.type.toUpperCase()}</strong><div><button onClick={()=>moveBlock(index,-1)} disabled={index===0} aria-label="Move block up">↑</button><button onClick={()=>moveBlock(index,1)} disabled={index===(editing.content||[]).length-1} aria-label="Move block down">↓</button><button onClick={()=>removeBlock(index)} aria-label="Remove block">×</button></div></div>
                   {block.type==="heading"?<><select value={block.level||2} onChange={e=>updateBlock(index,{level:Number(e.target.value)})}><option value={2}>Heading 2</option><option value={3}>Heading 3</option><option value={4}>Heading 4</option></select><input value={block.text||""} onChange={e=>updateBlock(index,{text:e.target.value})} placeholder="Section heading"/></>:null}
                   {block.type==="paragraph"||block.type==="quote"?<textarea rows={block.type==="quote"?3:5} value={block.text||""} onChange={e=>updateBlock(index,{text:e.target.value})} placeholder={block.type==="quote"?"Add a quotation":"Write your content here"}/>:null}
@@ -252,7 +253,7 @@ export default function CMSClient() {
                 <div className={styles.addBlock}><span>Add a block</span>{(["heading","paragraph","image","quote","button","divider"] as Block["type"][]).map(type=><button key={type} onClick={()=>addBlock(type)}>+ {type}</button>)}</div>
               </div>
               <aside className={styles.editorSide}>
-                <section className={styles.sideCard}><h3>Publish</h3><p>Current status: <b>{statusLabels[editing.status||"draft"]}</b></p><button className={styles.primary} disabled={saving||!editing.title?.trim()} onClick={()=>void saveEntry("published")}>{saving?"Saving…":"Publish"}</button><button className={styles.secondary} disabled={saving} onClick={()=>void saveEntry("draft")}>Save draft</button><button className={styles.secondary} disabled={saving} onClick={()=>void saveEntry("review")}>Submit for approval</button><label className={styles.field}>Schedule publication<input type="datetime-local" value={editing.scheduled_at?new Date(new Date(editing.scheduled_at).getTime()-new Date(editing.scheduled_at).getTimezoneOffset()*60000).toISOString().slice(0,16):""} onChange={e=>setEditing(v=>({...v,scheduled_at:e.target.value?new Date(e.target.value).toISOString():null}))}/></label><button className={styles.secondary} disabled={saving||!editing.scheduled_at} onClick={()=>void saveEntry("scheduled")}>Schedule</button>{activeEntryId&&<button className={styles.danger} onClick={()=>void archiveEntry()}>Move to archive</button>}</section>
+                <section className={styles.sideCard}><h3>Publish</h3><p>Current status: <b>{statusLabels[editing.status||"draft"]}</b></p>{role==="administrator"&&<button className={styles.primary} disabled={saving||!editing.title?.trim()} onClick={()=>void saveEntry("published")}>{saving?"Saving…":"Publish"}</button>}<button className={styles.secondary} disabled={saving} onClick={()=>void saveEntry("draft")}>Save draft</button><button className={styles.secondary} disabled={saving} onClick={()=>void saveEntry("review")}>Submit for approval</button>{role==="administrator"&&<><label className={styles.field}>Schedule publication<input type="datetime-local" value={editing.scheduled_at?new Date(new Date(editing.scheduled_at).getTime()-new Date(editing.scheduled_at).getTimezoneOffset()*60000).toISOString().slice(0,16):""} onChange={e=>setEditing(v=>({...v,scheduled_at:e.target.value?new Date(e.target.value).toISOString():null}))}/></label><button className={styles.secondary} disabled={saving||!editing.scheduled_at} onClick={()=>void saveEntry("scheduled")}>Schedule</button>{activeEntryId&&<button className={styles.danger} onClick={()=>void archiveEntry()}>Move to archive</button>}</>}</section>
                 <section className={styles.sideCard}><h3>Featured image</h3>{editing.featured_media_id?<img className={styles.featured} src={"/api/cms-media/"+editing.featured_media_id} alt="Selected featured image"/>:<p>No featured image selected.</p>}<button className={styles.secondary} onClick={()=>{setMediaTarget({kind:"featured"});setSection("media");}}>Choose media</button></section>
                 <section className={styles.sideCard}><h3>Revision history</h3>{revisions.length?revisions.map(rev=><div className={styles.revisionRow} key={rev.id}><span>{new Date(rev.created_at).toLocaleString()}<small>{rev.revision_note}</small></span><button className={styles.textButton} onClick={async()=>{if(!window.confirm("Restore this previous version? Your current version will be saved in the history."))return;const response=await fetch("/api/admin/cms/revisions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({entryId:activeEntryId,revisionId:rev.id})});const data=await response.json();if(!response.ok){setError(data.error||"Could not restore revision.");return;}setEditing(data.entry);setNotice("Previous version restored.");await openEntry(data.entry as Entry);}}>Restore</button></div>):<p>No saved revisions yet.</p>}</section><section className={styles.sideCard}><h3>Search appearance</h3><label className={styles.field}>SEO title<input value={editing.seo?.title||""} onChange={e=>setEditing(v=>({...v,seo:{...v.seo,title:e.target.value}}))}/></label><label className={styles.field}>Meta description<textarea rows={3} value={editing.seo?.description||""} onChange={e=>setEditing(v=>({...v,seo:{...v.seo,description:e.target.value}}))}/></label></section>
               </aside>
