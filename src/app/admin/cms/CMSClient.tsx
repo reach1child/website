@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import AdminSubpageShell from "../AdminSubpageShell";
 import styles from "./cms.module.css";
 
 type EntryType = "page" | "post" | "programme" | "story" | "event";
@@ -194,8 +193,7 @@ export default function CMSClient() {
 
   const pageTitle = sections.find(s=>s.id===section)?.label || "Website content";
 
-  return <AdminSubpageShell active="cms">
-    <main className={styles.workspace}>
+  return <main className={styles.workspace}>
       <header className={styles.header}>
         <div><a href="/admin/dashboard" className={styles.back}>Dashboard</a><span className={styles.crumb}> / WEBSITE CONTENT</span></div>
         <span className={styles.secure}>SECURE CONTENT WORKSPACE</span>
@@ -276,6 +274,5 @@ export default function CMSClient() {
           {section==="team"&&<div className={styles.settingsArea}><h3>Team access</h3><p>Invite authorised staff. Every account must use two-factor authentication.</p><form className={styles.inviteForm} onSubmit={inviteStaff}><input required placeholder="Staff member's name" value={invite.name} onChange={e=>setInvite(v=>({...v,name:e.target.value}))}/><input required type="email" placeholder="Email address" value={invite.email} onChange={e=>setInvite(v=>({...v,email:e.target.value}))}/><select value={invite.role} onChange={e=>setInvite(v=>({...v,role:e.target.value}))}><option value="editor">Editor — create and edit, submit for approval</option><option value="author">Author — create drafts and submit for approval</option></select><button className={styles.primary} disabled={saving}>{saving?"Sending…":"Invite staff member"}</button></form><div className={styles.teamList}>{team.map(member=><div key={member.email}><span><b>{member.display_name||member.email}</b><small>{member.email}</small></span><select value={member.access_role} onChange={async e=>{const response=await fetch("/api/admin/cms/team",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:member.email,role:e.target.value,isActive:member.is_active})});const data=await response.json();if(!response.ok){setError(data.error||"Could not update role.");return;}await loadSettings();}}><option value="editor">Editor</option><option value="author">Author</option></select><button className={member.is_active?styles.danger:styles.secondary} onClick={async()=>{const response=await fetch("/api/admin/cms/team",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:member.email,role:member.access_role,isActive:!member.is_active})});const data=await response.json();if(!response.ok){setError(data.error||"Could not update access.");return;}await loadSettings();}}>{member.is_active?"Deactivate":"Reactivate"}</button></div>)}</div></div>}
         </section>
       </div>
-    </main>
-  </AdminSubpageShell>;
+    </main>;
 }
