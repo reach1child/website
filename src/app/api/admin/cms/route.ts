@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbPool } from "@/lib/auth";
-import { cleanCmsText, getCmsActor, slugify } from "@/lib/cms";
+import { cleanCmsText, getCmsActor, publishDueCmsEntries, slugify } from "@/lib/cms";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,6 +14,7 @@ export async function GET(request: Request) {
   const actor = await getCmsActor();
   if (!actor) return NextResponse.json({ error: "Your secure administrator session is required." }, { status: 401 });
   try {
+    await publishDueCmsEntries();
     const url = new URL(request.url);
     const id = url.searchParams.get("id");
     if (id) {
@@ -58,6 +59,7 @@ export async function POST(request: Request) {
     if (!title || !types.has(contentType)) return NextResponse.json({ error: "A title and valid content type are required." }, { status: 400 });
     let status = statuses.has(body.status) ? body.status : "draft";
     if (actor.role !== "administrator" && status !== "draft") status = "review";
+    if (status === "scheduled" && (!body.scheduledAt || Number.isNaN(Date.parse(body.scheduledAt)))) return NextResponse.json({ error: "Choose a valid publication date and time." }, { status: 400 });
     const slug = slugify(cleanCmsText(body.slug, 120) || title);
     const result = await dbPool.query(
       "INSERT INTO public.cms_entries (content_type, slug, title, excerpt, content, status, featured_media_id, seo, scheduled_at, published_at, created_by, updated_by) VALUES ($1,$2,$3,$4,$5::jsonb,$6,$7,$8::jsonb,$9,CASE WHEN $6='published' THEN now() ELSE NULL END,$10,$10) RETURNING *",
@@ -88,8 +90,10 @@ export async function PATCH(request: Request) {
     const old = current.rows[0];
     let status = statuses.has(body.status) ? body.status : old.status;
     if (actor.role !== "administrator") status = status === "draft" ? "draft" : "review";
+    if (status === "scheduled" && !body.scheduledAt && !old.scheduled_at) return NextResponse.json({ error: "Choose a valid publication date and time." }, { status: 400 });
     const title = cleanCmsText(body.title ?? old.title, 180);
     const slug = slugify(cleanCmsText(body.slug ?? old.slug, 120) || title);
+    if (actor.role === "author" && old.created_by !== actor.email) return NextResponse.json({ error: "Authors can only edit their own drafts." }, { status: 403 });
     const content = body.content === undefined ? old.content : asBlocks(body.content);
     const excerpt = body.excerpt === undefined ? old.excerpt : cleanCmsText(body.excerpt, 500);
     const seo = body.seo === undefined ? old.seo : asObject(body.seo);
