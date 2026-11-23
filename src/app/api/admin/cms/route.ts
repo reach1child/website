@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbPool } from "@/lib/auth";
-import { cleanCmsText, getCmsActor, publishDueCmsEntries, slugify } from "@/lib/cms";
+import { cleanCmsBlocks, cleanCmsText, getCmsActor, publishDueCmsEntries, slugify } from "@/lib/cms";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 const types = new Set(["page", "post", "programme", "story", "event"]);
 const statuses = new Set(["draft", "review", "scheduled", "published", "archived"]);
 const asObject = (value: unknown) => value && typeof value === "object" && !Array.isArray(value) ? value : {};
-const asBlocks = (value: unknown) => Array.isArray(value) ? value.slice(0, 100) : [];
+const asBlocks = cleanCmsBlocks;
 
 export async function GET(request: Request) {
   const actor = await getCmsActor();
