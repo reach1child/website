@@ -32,3 +32,7 @@ export function slugify(value: string): string {
   return value.normalize("NFKD").toLowerCase().replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 100) || "untitled";
 }
+
+export async function publishDueCmsEntries(): Promise<void> {
+  await dbPool.query("UPDATE public.cms_entries SET status='published', published_at=COALESCE(scheduled_at,now()), updated_at=now() WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at <= now()");
+}
