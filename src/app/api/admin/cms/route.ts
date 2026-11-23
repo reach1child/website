@@ -20,6 +20,7 @@ export async function GET(request: Request) {
     if (id) {
       const entry = await dbPool.query("SELECT * FROM public.cms_entries WHERE id=$1", [id]);
       if (!entry.rowCount) return NextResponse.json({ error: "Content not found." }, { status: 404 });
+      if (actor.role === "author" && entry.rows[0].created_by !== actor.email) return NextResponse.json({ error: "Authors can only view their own drafts." }, { status: 403 });
       const revisions = await dbPool.query(
         "SELECT id, revision_note, created_by, created_at FROM public.cms_revisions WHERE entry_id=$1 ORDER BY created_at DESC LIMIT 30",
         [id]
@@ -34,6 +35,7 @@ export async function GET(request: Request) {
     if (types.has(type)) { values.push(type); where.push("content_type=$" + values.length); }
     if (statuses.has(status)) { values.push(status); where.push("status=$" + values.length); }
     if (q) { values.push("%" + q + "%"); where.push("(title ILIKE $" + values.length + " OR slug ILIKE $" + values.length + " OR excerpt ILIKE $" + values.length + ")"); }
+    if (actor.role === "author") { values.push(actor.email); where.push("created_by=$" + values.length); }
     const result = await dbPool.query(
       "SELECT id, content_type, slug, title, excerpt, status, featured_media_id, scheduled_at, published_at, created_at, updated_at FROM public.cms_entries " +
       (where.length ? "WHERE " + where.join(" AND ") : "") + " ORDER BY updated_at DESC LIMIT 250",
