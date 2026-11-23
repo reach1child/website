@@ -13,9 +13,9 @@ function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
 
-export default function ImpactCounters() {
+export default function ImpactCounters({ values }: { values?: string[] }) {\n  const configuredFigures = figures.map((figure,index) => ({ ...figure, value: Number.parseInt(values?.[index] || String(figure.value),10) || figure.value }));
   const [started, setStarted] = useState(false);
-  const [values, setValues] = useState(figures.map(() => 0));
+  const [values, setValues] = useState(configuredFigures.map(() => 0));
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function ImpactCounters() {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
-      setValues(figures.map((figure) => figure.value));
+      setValues(configuredFigures.map((figure) => figure.value));
       return;
     }
 
@@ -52,7 +52,7 @@ export default function ImpactCounters() {
     const animate = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setValues(figures.map((figure) => Math.round(figure.value * eased)));
+      setValues(configuredFigures.map((figure) => Math.round(figure.value * eased)));
 
       if (progress < 1) {
         animationId = requestAnimationFrame(animate);
@@ -65,7 +65,7 @@ export default function ImpactCounters() {
 
   return (
     <div className="container impact-grid" ref={sectionRef}>
-      {figures.map((figure, index) => (
+      {configuredFigures.map((figure, index) => (
         <div className="impact-item" key={figure.label}>
           <strong aria-label={`${formatNumber(figure.value)}${figure.suffix}`}>
             {formatNumber(values[index])}{figure.suffix}
