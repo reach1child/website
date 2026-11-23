@@ -268,7 +268,7 @@ export default function CMSClient() {
                   <h3>Homepage sections</h3>
                   <p>Edit the sections displayed below the homepage hero. Leave a field blank to keep the current website wording.</p>
                   {([
-                    ["aboutText1","About section — first paragraph"],["aboutText2","About section — second paragraph"],["aboutImage","About section — image URL"],
+                    ["aboutText1","About section — first paragraph"],["aboutText2","About section — second paragraph"],["aboutImage","About section — image URL"],["impactSponsored","Impact — children directly sponsored"],["impactIndirect","Impact — children indirectly supported"],["impactPads","Impact — sanitary pads donated"],["impactWorkshops","Impact — workshops held"],
                     ["storyTitle","Story section — heading"],["storyText","Story section — paragraph"],["storyImage","Story section — image URL"],
                     ["reachTitle","Our reach — heading"],["reachText","Our reach — paragraph"],["schools","Community schools supported"],["partners","Partner organisations"],["communities","Communities reached"],
                     ["newsEyebrow","Latest news — small heading"],["newsTitle","Latest news — title"],["newsText","Latest news — introduction"]
